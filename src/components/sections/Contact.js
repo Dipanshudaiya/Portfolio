@@ -1,9 +1,37 @@
 'use client';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [sendStatus, setSendStatus] = useState('idle'); // idle | sending | sent
+  const [ripple, setRipple] = useState(null);
+  const btnRef = useRef(null);
+
+  const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) return;
+    
+    // Trigger ripple
+    const btn = btnRef.current;
+    if (btn) {
+      const rect = btn.getBoundingClientRect();
+      setRipple({ x: rect.width / 2, y: rect.height / 2 });
+      setTimeout(() => setRipple(null), 700);
+    }
+
+    setSendStatus('sending');
+    
+    // Simulate send (fallback: open mailto)
+    setTimeout(() => {
+      window.location.href = `mailto:dipanshudaiya4@gmail.com?subject=Message from ${formData.name}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${formData.email}`;
+      setSendStatus('sent');
+      setFormData({ name: '', email: '', message: '' });
+      setTimeout(() => setSendStatus('idle'), 4000);
+    }, 1500);
+  };
 
   const CONTACT_INFO = [
     { 
@@ -158,21 +186,29 @@ export default function Contact() {
                   </p>
                 </div>
 
-                <form className="space-y-4 md:space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400 ml-1">Full Name</label>
                       <input 
-                        type="text" 
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
                         placeholder="John Doe"
+                        required
                         className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl md:rounded-2xl px-4 py-3 md:py-4 outline-none focus:border-teal-500/50 transition-all font-medium text-xs md:text-base"
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400 ml-1">Email Address</label>
                       <input 
-                        type="email" 
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
                         placeholder="john@example.com"
+                        required
                         className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl md:rounded-2xl px-4 py-3 md:py-4 outline-none focus:border-teal-500/50 transition-all font-medium text-xs md:text-base"
                       />
                     </div>
@@ -181,18 +217,75 @@ export default function Contact() {
                     <label className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400 ml-1">Your Message</label>
                     <textarea 
                       rows="3"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
                       placeholder="How can I help you?"
+                      required
                       className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl md:rounded-[1.5rem] px-4 py-4 md:py-5 outline-none focus:border-teal-500/50 transition-all font-medium text-xs md:text-base resize-none"
                     ></textarea>
                   </div>
-                  <motion.button 
-                    whileHover={{ y: -3 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="w-full py-4 md:py-5 bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-xl md:rounded-[1.2rem] font-black text-[10px] md:text-[12px] uppercase tracking-[0.3em] shadow-lg transition-all"
+
+                  {/* Animated Send Button */}
+                  <motion.button
+                    ref={btnRef}
+                    type="submit"
+                    disabled={sendStatus !== 'idle'}
+                    whileHover={sendStatus === 'idle' ? { y: -3, boxShadow: '0 20px 40px rgba(13,148,136,0.35)' } : {}}
+                    whileTap={sendStatus === 'idle' ? { scale: 0.97 } : {}}
+                    className={`relative w-full py-4 md:py-5 rounded-xl md:rounded-[1.2rem] font-black text-[10px] md:text-[12px] uppercase tracking-[0.3em] shadow-lg transition-all overflow-hidden text-white
+                      ${sendStatus === 'sent' 
+                        ? 'bg-gradient-to-br from-green-500 to-emerald-600' 
+                        : 'bg-gradient-to-br from-teal-600 to-teal-700'}`}
                   >
-                    Send Message
+                    {/* Ripple Effect */}
+                    <AnimatePresence>
+                      {ripple && (
+                        <motion.span
+                          key="ripple"
+                          className="absolute rounded-full bg-white/30 pointer-events-none"
+                          style={{ left: ripple.x, top: ripple.y, translateX: '-50%', translateY: '-50%' }}
+                          initial={{ width: 0, height: 0, opacity: 0.6 }}
+                          animate={{ width: 400, height: 400, opacity: 0 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.6, ease: 'easeOut' }}
+                        />
+                      )}
+                    </AnimatePresence>
+
+                    {/* Button Content */}
+                    <AnimatePresence mode="wait">
+                      {sendStatus === 'idle' && (
+                        <motion.span key="idle" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="flex items-center justify-center gap-2">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                          </svg>
+                          Send Message
+                        </motion.span>
+                      )}
+                      {sendStatus === 'sending' && (
+                        <motion.span key="sending" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="flex items-center justify-center gap-2">
+                          <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                          </svg>
+                          Sending...
+                        </motion.span>
+                      )}
+                      {sendStatus === 'sent' && (
+                        <motion.span key="sent" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} className="flex items-center justify-center gap-2">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={3}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                          {/* Desktop: full text, Mobile: short text */}
+                          <span className="hidden md:inline">Sent Successfully</span>
+                          <span className="md:hidden">Sent</span>
+                        </motion.span>
+                      )}
+                    </AnimatePresence>
                   </motion.button>
                 </form>
+
              </div>
           </motion.div>
         </div>
