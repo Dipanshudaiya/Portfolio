@@ -893,7 +893,7 @@
   .navLinkRight {
     order: 3;
   }
-  :global(.theme-toggle-wrapper) {
+  .navigation :global(.theme-toggle-wrapper) {
     order: 2;
   }
   .heroSection {
