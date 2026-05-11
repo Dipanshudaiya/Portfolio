@@ -18,7 +18,21 @@ export default function CustomCursor() {
   const outerX = useSpring(mouseX, { damping: 20, stiffness: 150, mass: 0.8 });
   const outerY = useSpring(mouseY, { damping: 20, stiffness: 150, mass: 0.8 });
 
+  const [isTouchDevice, setIsTouchDevice] = useState(true); // Default true to avoid hydration mismatch, or check in effect
+
   useEffect(() => {
+    // Check if device is a touch device
+    const checkTouch = () => {
+      setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window);
+    };
+    checkTouch();
+    window.addEventListener('resize', checkTouch);
+    return () => window.removeEventListener('resize', checkTouch);
+  }, []);
+
+  useEffect(() => {
+    if (isTouchDevice) return;
+
     const moveMouse = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -45,7 +59,9 @@ export default function CustomCursor() {
       window.removeEventListener('mousemove', moveMouse);
       window.removeEventListener('mouseover', handleHover);
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isTouchDevice]);
+
+  if (isTouchDevice) return null;
 
   return (
     <>
