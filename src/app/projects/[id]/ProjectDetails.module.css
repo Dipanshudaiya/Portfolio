@@ -829,7 +829,7 @@
   .main {
     padding: 20px 0 60px;
   }
-  :global(.container) {
+  .main :global(.container) {
     padding-left: 20px !important;
     padding-right: 20px !important;
     width: 100% !important;
