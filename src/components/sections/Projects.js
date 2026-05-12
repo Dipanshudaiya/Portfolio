@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { projectsData } from '../../data/projectsData';
-import { PageLoader } from '../ui/PageLoader';
+import PageLoader from '../ui/PageLoader';
 
 export default function Projects() {
   const router = useRouter();
