@@ -1,14 +1,17 @@
 'use client';
+import dynamic from 'next/dynamic';
 import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
-import ScrollReveal from '@/components/ui/ScrollReveal';
-import ScrollVelocityBanner from '@/components/ui/ScrollVelocityBanner';
 import Hero from '@/components/hero/Hero';
-import StatsSection from '@/components/sections/StatsSection';
-import About from '@/components/sections/About';
-import Skills from '@/components/sections/Skills';
-import Projects from '@/components/sections/Projects';
-import Contact from '@/components/sections/Contact';
+import ScrollReveal from '@/components/ui/ScrollReveal';
+
+// Lazy load below-the-fold sections for faster initial page load
+const Footer             = dynamic(() => import('@/components/layout/Footer'));
+const ScrollVelocityBanner = dynamic(() => import('@/components/ui/ScrollVelocityBanner'));
+const StatsSection       = dynamic(() => import('@/components/sections/StatsSection'));
+const About              = dynamic(() => import('@/components/sections/About'));
+const Skills             = dynamic(() => import('@/components/sections/Skills'));
+const Projects           = dynamic(() => import('@/components/sections/Projects'));
+const Contact            = dynamic(() => import('@/components/sections/Contact'));
 
 export default function Home() {
   return (
