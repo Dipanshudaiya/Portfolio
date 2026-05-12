@@ -49,6 +49,10 @@ export default function About() {
           pointer-events: none;
           z-index: 10;
         }
+        .laser-container {
+          will-change: transform;
+          backface-visibility: hidden;
+        }
       `}} />
 
       <div className="container relative z-10 px-6">
@@ -114,7 +118,7 @@ export default function About() {
             <div className="relative group rounded-[2.1rem] md:rounded-[2.6rem] bg-gray-200 dark:bg-white/10 overflow-hidden p-[1.5px] tap-highlight-transparent">
               {/* THE LASER BORDER - MASKED */}
               <div className="absolute inset-0 z-10 pointer-events-none">
-                <div className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_40%,#14b8a6_50%,transparent_60%)] animate-[border-flow-teal_4s_linear_infinite]" />
+                <div className="laser-container absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_40%,#14b8a6_50%,transparent_60%)] animate-[border-flow-teal_6s_linear_infinite]" />
                 <div className="laser-mask rounded-[2.1rem] md:rounded-[2.6rem]" />
               </div>
 
@@ -138,7 +142,7 @@ export default function About() {
                 >
                   {/* THE LASER BORDER - MASKED */}
                   <div className="absolute inset-0 z-10 pointer-events-none">
-                    <div className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_40%,#14b8a6_50%,transparent_60%)] animate-[border-flow-teal_3s_linear_infinite]" />
+                    <div className="laser-container absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_40%,#14b8a6_50%,transparent_60%)] animate-[border-flow-teal_5s_linear_infinite]" />
                     <div className="laser-mask rounded-[1.6rem] md:rounded-[2.1rem]" />
                   </div>
 

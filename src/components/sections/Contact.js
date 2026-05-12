@@ -104,7 +104,9 @@ export default function Contact() {
           position: absolute;
           inset: -200%;
           background: conic-gradient(from 0deg, transparent 30%, #14b8a6 50%, transparent 70%);
-          animation: border-flow-teal 4s linear infinite;
+          animation: border-flow-teal 8s linear infinite;
+          will-change: transform;
+          backface-visibility: hidden;
         }
       `}} />
 
