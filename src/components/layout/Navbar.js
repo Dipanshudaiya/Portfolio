@@ -22,9 +22,6 @@ export default function Navbar() {
   const [hoverIndex, setHoverIndex] = useState(null);
   const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 });
   const navRefs = useRef([]);
-  const pathname = usePathname();
-  const router = useRouter();
-
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
 
@@ -35,24 +32,34 @@ export default function Navbar() {
     document.documentElement.setAttribute('data-theme', savedTheme);
     document.documentElement.classList.toggle('dark', savedTheme === 'dark');
 
+    // Efficient Scroll detection for background only
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-      const scrollPos = window.scrollY + 100;
-      NAV_LINKS.forEach((link, idx) => {
-        const element = document.getElementById(link.id);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPos >= offsetTop && scrollPos < offsetTop + height) {
-            setActiveIndex(idx);
-          }
+      if (window.scrollY > 20 && !scrolled) setScrolled(true);
+      else if (window.scrollY <= 20 && scrolled) setScrolled(false);
+    };
+
+    // Use IntersectionObserver for Active Section Detection (No Layout Thrashing)
+    const observerOptions = { rootMargin: '-40% 0px -40% 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const index = NAV_LINKS.findIndex(link => link.id === entry.target.id);
+          if (index !== -1) setActiveIndex(index);
         }
       });
-    };
+    }, observerOptions);
+
+    NAV_LINKS.forEach(link => {
+      const el = document.getElementById(link.id);
+      if (el) observer.observe(el);
+    });
     
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
+  }, [scrolled]);
 
   useEffect(() => {
     const targetIdx = hoverIndex !== null ? hoverIndex : activeIndex;
@@ -144,7 +151,7 @@ export default function Navbar() {
               <motion.div
                 layout
                 className="absolute top-1 bottom-1 w-6 md:w-8 bg-white dark:bg-teal-600 rounded-full shadow-md z-0"
-                animate={{ x: theme === 'light' ? 0 : (isMounted && window.innerWidth < 768 ? 24 : 32) }}
+                style={{ x: theme === 'light' ? 0 : 32 }}
                 transition={{ type: 'spring', stiffness: 500, damping: 30 }}
               />
               <button onClick={() => toggleTheme('light')} className={`relative z-10 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-[10px] md:text-sm ${theme === 'light' ? 'text-teal-600' : 'text-gray-400'}`}>☀️</button>

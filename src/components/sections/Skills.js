@@ -23,15 +23,10 @@ const SKILLS_BOTTOM = [
 export default function Skills() {
   const renderSkillIcon = (item, size = 80) => (
     <div 
-      className="relative group/logo rounded-2xl md:rounded-[1.5rem] overflow-hidden p-[1px] bg-gray-200 dark:bg-white/10"
+      className="relative group/logo rounded-2xl md:rounded-[1.5rem] overflow-hidden p-[1px] bg-teal-500/20"
       style={{ height: `${size}px`, width: `${size}px` }}
     >
-      {/* THE LASER BORDER - UNIVERSAL MASK */}
-      <div className="laser-border-container">
-        <div className="rotating-gradient" />
-      </div>
-
-      <div className="relative z-20 w-full h-full flex items-center justify-center bg-white dark:bg-[#0a0a0a] rounded-[calc(1rem-1px)] md:rounded-[calc(1.5rem-1px)] p-3 md:p-4 shadow-lg group-hover/logo:bg-teal-500/5 transition-all duration-300">
+      <div className="relative z-20 w-full h-full flex items-center justify-center bg-white dark:bg-[#0a0a0a] rounded-[calc(1rem-1px)] md:rounded-[calc(1.5rem-1px)] p-3 md:p-4 shadow-lg group-hover/logo:bg-teal-500/10 transition-all duration-300">
         <img src={item.src} alt={item.alt} className="w-full h-full object-contain antialiased" />
       </div>
     </div>
@@ -39,30 +34,6 @@ export default function Skills() {
 
   return (
     <section id="skills" className="relative w-full py-[60px] md:py-[60px] bg-transparent overflow-hidden antialiased">
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes border-flow-teal {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        .laser-border-container {
-          position: absolute;
-          inset: 0;
-          z-index: 10;
-          pointer-events: none;
-          background: transparent;
-          border-radius: inherit;
-          padding: 2.2px; /* Border Thickness */
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-        }
-        .rotating-gradient {
-          position: absolute;
-          inset: -200%;
-          background: conic-gradient(from 0deg, transparent 30%, #14b8a6 50%, transparent 70%);
-          animation: border-flow-teal 4s linear infinite;
-        }
-      `}} />
       <div className="container">
         {/* Section Header */}
         <div className="flex flex-col items-center mb-10 md:mb-16 text-center">

@@ -1,34 +1,24 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-export default function PageLoader({ isVisible = true, onComplete, projectName = "System" }) {
-  const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
+export default function PageLoader({ isVisible = true, onComplete, projectName = "Portfolio" }) {
+  const [shouldRender, setShouldRender] = useState(isVisible);
 
   useEffect(() => {
-    if (!isVisible) return;
-    
-    setLoading(true);
-    setProgress(0);
-    
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            setLoading(false);
-            if (onComplete) onComplete();
-          }, 500);
-          return 100;
-        }
-        return prev + 5;
-      });
-    }, 30);
-
-    return () => clearInterval(interval);
+    if (isVisible) {
+      setShouldRender(true);
+      // Auto-complete after 1.5s to keep it fast
+      const timer = setTimeout(() => {
+        setShouldRender(false);
+        if (onComplete) onComplete();
+      }, 1500);
+      return () => clearTimeout(timer);
+    } else {
+      setShouldRender(false);
+    }
   }, [isVisible, onComplete]);
 
-  if (!isVisible || !loading) return null;
+  if (!shouldRender) return null;
 
   return (
     <div className="fixed inset-0 z-[9999] bg-[#030303] flex flex-col items-center justify-center overflow-hidden antialiased">
@@ -47,6 +37,10 @@ export default function PageLoader({ isVisible = true, onComplete, projectName =
           width: 100%;
           position: absolute;
           animation: line-glow 2s ease-in-out infinite;
+        }
+        @keyframes progress-fill {
+          0% { width: 0%; }
+          100% { width: 100%; }
         }
         @keyframes shimmer {
           100% { transform: translateX(100%); }
@@ -69,12 +63,13 @@ export default function PageLoader({ isVisible = true, onComplete, projectName =
             <span className="text-[10px] font-black tracking-[0.3em] text-teal-500 uppercase">
               {projectName} Initializing
             </span>
-            <span className="text-[14px] font-mono font-bold text-white leading-none">{progress}%</span>
+            {/* Pure CSS counter animation for visual only */}
+            <span className="text-[14px] font-mono font-bold text-white leading-none">SYSTEM READY</span>
           </div>
           <div className="h-[4px] w-full bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
             <div 
-              className="h-full bg-gradient-to-r from-teal-500 to-emerald-400 transition-all duration-300 ease-out rounded-full relative shadow-[0_0_15px_rgba(20,184,166,0.5)]"
-              style={{ width: `${progress}%` }}
+              className="h-full bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full relative shadow-[0_0_15px_rgba(20,184,166,0.5)]"
+              style={{ animation: 'progress-fill 1.2s ease-out forwards' }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-100%]" 
                    style={{ animation: 'shimmer 1.5s infinite linear' }}
