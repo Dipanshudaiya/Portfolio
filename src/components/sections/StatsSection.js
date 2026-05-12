@@ -73,7 +73,7 @@ export default function StatsSection() {
             >
               {/* THE LASER BORDER - MASKED */}
               <div className="absolute inset-0 z-10 pointer-events-none">
-                <div className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_40%,#14b8a6_50%,transparent_60%)] animate-[border-flow-teal_3s_linear_infinite]" />
+                <div className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_40%,#14b8a6_50%,transparent_60%)] animate-[border-flow-teal_6s_linear_infinite] [will-change:transform] [backface-visibility:hidden]" />
                 <div className="laser-mask rounded-3xl md:rounded-[2.5rem]" />
               </div>
 
