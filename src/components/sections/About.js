@@ -12,10 +12,13 @@ export default function About() {
   const handleAboutClick = (e) => {
     e.preventDefault();
     setIsRedirecting(true);
+    // Start navigation immediately so Next.js can pre-load in background
+    router.push('/about');
   };
 
   const handleLoadingComplete = () => {
-    router.push('/about');
+    // PageLoader finished its animation
+    // No need to call router.push here anymore as it started on click
   };
 
   const HIGHLIGHTS = [
@@ -159,7 +162,7 @@ export default function About() {
             <div className="pt-4 md:pt-6">
               <motion.button
                 onClick={handleAboutClick}
-                whileHover={{ y: -4, shadow: "0 20px 40px rgba(13,148,136,0.35)" }}
+                whileHover={typeof window !== 'undefined' && window.innerWidth >= 768 ? { y: -4, shadow: "0 20px 40px rgba(13,148,136,0.35)" } : {}}
                 whileTap={{ scale: 0.96 }}
                 className="group relative w-full md:w-fit px-8 md:px-14 py-5 md:py-6 bg-gradient-to-br from-teal-600 to-teal-700 text-white font-black text-[11px] md:text-[13px] uppercase tracking-[0.2em] md:tracking-[0.3em] rounded-2xl overflow-hidden transition-all duration-200 shadow-[0_10px_20px_rgba(13,148,136,0.2)] flex items-center justify-center gap-3 md:gap-4"
               >

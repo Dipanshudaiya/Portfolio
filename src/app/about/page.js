@@ -10,7 +10,7 @@ function SpotlightCard({ children, className = '', noCardOnMobile = false }) {
   const [mousePosition, setMousePosition] = useState({ x: -1000, y: -1000 });
   
   const handleMouseMove = (e) => {
-    if (!boundingRef.current) return;
+    if (!boundingRef.current || window.innerWidth < 768) return;
     const rect = boundingRef.current.getBoundingClientRect();
     const localX = e.clientX - rect.left;
     const localY = e.clientY - rect.top;
@@ -139,7 +139,15 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <div className="px-8 pb-10">
-                  <motion.a href="/resume.pdf" download whileTap={{ scale: 0.96 }} className="w-full block bg-gradient-to-br from-indigo-600 to-indigo-700 text-white py-4 rounded-xl font-black text-[11px] uppercase tracking-[0.2em] shadow-lg text-center">Download Resume 📥</motion.a>
+                  <motion.a 
+                    href="/resume.pdf" 
+                    download 
+                    whileHover={typeof window !== 'undefined' && window.innerWidth >= 768 ? { y: -4, shadow: "0 20px 40px rgba(79,70,229,0.3)" } : {}}
+                    whileTap={{ scale: 0.96 }} 
+                    className="w-full block bg-gradient-to-br from-indigo-600 to-indigo-700 text-white py-4 rounded-xl font-black text-[11px] uppercase tracking-[0.2em] shadow-lg text-center"
+                  >
+                    Download Resume 📥
+                  </motion.a>
                 </div>
               </SpotlightCard>
 

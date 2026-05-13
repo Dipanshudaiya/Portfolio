@@ -147,15 +147,14 @@ export default function Navbar() {
 
           {/* Right: Actions */}
           <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
-            <div className="flex items-center bg-gray-100 dark:bg-white/5 p-1 rounded-full relative border border-gray-200 dark:border-white/10">
+            <div className={`flex items-center bg-gray-100 dark:bg-white/5 p-1 rounded-full relative border border-gray-200 dark:border-white/10 ${theme === 'light' ? 'justify-start' : 'justify-end'}`}>
               <motion.div
                 layout
-                className="absolute top-1 bottom-1 w-6 md:w-8 bg-white dark:bg-teal-600 rounded-full shadow-md z-0"
-                style={{ x: theme === 'light' ? 0 : 32 }}
+                className="absolute w-6 md:w-8 h-6 md:h-8 bg-white dark:bg-teal-600 rounded-full shadow-md z-0"
                 transition={{ type: 'spring', stiffness: 500, damping: 30 }}
               />
-              <button onClick={() => toggleTheme('light')} className={`relative z-10 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-[10px] md:text-sm ${theme === 'light' ? 'text-teal-600' : 'text-gray-400'}`}>☀️</button>
-              <button onClick={() => toggleTheme('dark')} className={`relative z-10 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-[10px] md:text-sm ${theme === 'dark' ? 'text-white' : 'text-gray-400'}`}>🌙</button>
+              <button onClick={() => toggleTheme('light')} className={`relative z-10 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-[10px] md:text-sm transition-colors duration-300 ${theme === 'light' ? 'text-teal-600' : 'text-gray-400'}`}>☀️</button>
+              <button onClick={() => toggleTheme('dark')} className={`relative z-10 w-6 h-6 md:w-8 md:h-8 flex items-center justify-center text-[10px] md:text-sm transition-colors duration-300 ${theme === 'dark' ? 'text-white' : 'text-gray-400'}`}>🌙</button>
             </div>
 
             <FlipButton 
@@ -190,9 +189,9 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed top-20 left-4 right-4 bg-white/95 dark:bg-black/95 backdrop-blur-3xl rounded-[2rem] p-6 border border-white/20 dark:border-white/10 shadow-2xl lg:hidden flex flex-col gap-4 z-[6000] pointer-events-auto"
+            className="fixed top-20 left-4 right-4 bg-white/95 dark:bg-black/95 backdrop-blur-3xl rounded-[2.5rem] p-4 border border-white/20 dark:border-white/10 shadow-2xl lg:hidden grid grid-cols-2 gap-3 z-[6000] pointer-events-auto"
           >
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.map((link, idx) => (
               <a 
                 key={link.name} 
                 href={link.href} 
@@ -202,11 +201,10 @@ export default function Navbar() {
                   const el = document.getElementById(link.id);
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="flex items-center gap-4 p-4 rounded-2xl hover:bg-teal-600/10 transition-all group"
+                className={`flex flex-col items-center justify-center gap-2 p-5 rounded-[1.8rem] bg-gray-50/50 dark:bg-white/5 border border-black/5 dark:border-white/5 transition-all group active:scale-95 ${idx === 4 ? 'col-span-2 py-4 flex-row' : ''}`}
               >
-                <span className="text-xl bg-teal-500/10 w-10 h-10 flex items-center justify-center rounded-xl group-hover:bg-teal-600 group-hover:text-white transition-colors">{link.icon}</span>
-                <span className="text-lg font-black text-gray-900 dark:text-white uppercase tracking-widest">{link.name}</span>
-                <span className="ml-auto text-teal-500 opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-1">→</span>
+                <span className={`text-xl ${idx === 4 ? 'w-8 h-8' : 'w-10 h-10'} flex items-center justify-center rounded-xl bg-teal-500/10 group-hover:bg-teal-600 group-hover:text-white transition-colors`}>{link.icon}</span>
+                <span className="text-[11px] font-black text-gray-900 dark:text-white uppercase tracking-[0.2em]">{link.name}</span>
               </a>
             ))}
           </motion.div>

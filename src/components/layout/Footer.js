@@ -80,34 +80,33 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-4 md:gap-6 mb-4 md:mb-6">
           {/* Main CTA Card - OPTIMIZED FOR MOBILE */}
           <div className="relative group rounded-[2rem] md:rounded-[2.5rem] bg-gray-200 dark:bg-white/10 overflow-hidden p-[1px] tap-highlight-transparent flex-grow">
-            <div className="laser-border-container">
+            <div className="laser-border-container md:block hidden">
                <div className="rotating-gradient" />
             </div>
 
             <div className="relative z-20 h-full w-full bg-white dark:bg-[#0a0a0a] rounded-[calc(2rem-1px)] md:rounded-[calc(2.5rem-1px)] p-6 md:p-8 lg:p-10 overflow-hidden flex flex-col justify-between">
               <div>
-                <div className="flex items-center gap-2 mb-4 md:mb-5 py-1 md:py-1.5 px-3 bg-teal-500/10 border border-teal-500/20 rounded-full w-fit">
+                <div className="flex items-center gap-2 mb-4 md:mb-5 py-1 md:py-1.5 px-3 bg-teal-500/10 border border-teal-500/20 rounded-full w-fit mx-auto md:mx-0">
                   <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
                   <span className="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">Available</span>
                 </div>
 
-                <h2 className="text-[clamp(1.8rem,4.5vw,3rem)] font-black leading-[1.1] mb-4 md:mb-5 tracking-tighter text-gray-900 dark:text-white">
-                  <span className="block md:inline">Let's build something</span> <br className="hidden md:block" />
-                  <span className="text-teal-600 block md:inline md:mt-0 mt-1">legendary together.</span>
+                <h2 className="text-[clamp(1.5rem,4.5vw,3rem)] font-black leading-[1.1] mb-4 md:mb-5 tracking-tighter text-gray-900 dark:text-white text-center md:text-left">
+                  Ready to start a <br className="md:hidden" /> <span className="text-teal-600">new project?</span>
                 </h2>
                 
-                <p className="text-xs md:text-base text-gray-500 dark:text-gray-400 max-w-[500px] font-medium mb-6 md:mb-6 leading-relaxed">
+                <p className="text-xs md:text-base text-gray-500 dark:text-gray-400 max-w-[500px] font-medium mb-6 md:mb-6 leading-relaxed text-center md:text-left hidden md:block">
                   Have a groundbreaking idea? Let's turn your vision into a high-performance digital masterpiece.
                 </p>
 
-                <div className="flex mb-6 md:mb-8">
+                <div className="flex mb-2 md:mb-8 justify-center md:justify-start">
                   <motion.a 
                     href="mailto:dipanshudaiya4@gmail.com" 
-                    whileHover={{ y: -4, shadow: "0 20px 40px rgba(13,148,136,0.35)" }}
+                    whileHover={typeof window !== 'undefined' && window.innerWidth >= 768 ? { y: -4, shadow: "0 20px 40px rgba(13,148,136,0.35)" } : {}}
                     whileTap={{ scale: 0.96 }}
                     className="relative group/btn w-full md:w-fit px-8 md:px-10 py-3.5 md:py-4 bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-xl font-black text-[10px] md:text-[11px] uppercase tracking-[0.2em] whitespace-nowrap overflow-hidden transition-all duration-200 shadow-lg flex items-center justify-center gap-3"
                   >
-                    <span className="relative z-10">Start a Conversation</span>
+                    <span className="relative z-10">Get in Touch</span>
                     <span className="relative z-10 text-xl group-hover/btn:translate-x-1 transition-transform duration-300">→</span>
                   </motion.a>
                 </div>
@@ -128,8 +127,8 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col gap-4 md:gap-6">
-            {/* Navigation Grid Bento */}
-            <div className="relative group rounded-[2rem] md:rounded-[2.5rem] bg-gray-200 dark:bg-white/10 overflow-hidden p-[1px] flex-grow">
+            {/* Navigation Grid Bento - HIDDEN ON MOBILE FOR COMPACTNESS */}
+            <div className="relative group rounded-[2rem] md:rounded-[2.5rem] bg-gray-200 dark:bg-white/10 overflow-hidden p-[1px] flex-grow hidden md:block">
               <div className="laser-border-container">
                 <div className="rotating-gradient" />
               </div>
@@ -167,18 +166,11 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Socials Bento */}
+            {/* Socials Bento - COMPACT FOR MOBILE */}
             <div className="relative group rounded-[1.8rem] bg-gray-200 dark:bg-white/10 overflow-hidden p-[1px] lg:hidden">
-              <div className="laser-border-container">
-                <div className="rotating-gradient" />
-              </div>
-              <div className="relative z-20 h-full w-full bg-white dark:bg-[#0a0a0a] rounded-[calc(1.8rem-1px)] py-4 px-6 flex flex-col items-center">
-                <div className="flex justify-center mb-3">
-                  <div className="px-3 py-1 bg-teal-50 dark:bg-teal-500/10 border border-teal-100 dark:border-teal-500/20 rounded-full shadow-sm">
-                    <span className="text-[7px] font-black uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">Socials</span>
-                  </div>
-                </div>
-                <SocialsList wide={true} />
+              <div className="relative z-20 h-full w-full bg-white dark:bg-[#0a0a0a] rounded-[calc(1.8rem-1px)] py-4 px-6 flex flex-row items-center justify-between">
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-gray-400">Socials</span>
+                <SocialsList wide={false} />
               </div>
             </div>
           </div>

@@ -24,7 +24,9 @@ export default function Home() {
       
       <main className="relative z-10 flex flex-col gap-4 overflow-visible w-full">
         <Hero />
-        <ScrollVelocityBanner />
+        <div className="hidden md:block">
+          <ScrollVelocityBanner />
+        </div>
         <StatsSection />
         <About />
         <Skills />

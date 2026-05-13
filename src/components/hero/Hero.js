@@ -92,15 +92,15 @@ export default function Hero() {
             </p>
 
             {/* Buttons */}
-            <div className="flex flex-row flex-nowrap justify-center lg:justify-start gap-2 md:gap-4 mb-8 md:mb-12 px-2">
-              <a href="#projects" className="group relative px-4 py-3 md:px-10 md:py-6 bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-xl md:rounded-2xl font-black text-[9px] md:text-[13px] uppercase tracking-[0.1em] md:tracking-[0.2em] overflow-hidden transition-all duration-200 hover:shadow-[0_20px_40px_rgba(13,148,136,0.35)] hover:-translate-y-1 active:scale-95 shadow-[0_10px_20px_rgba(13,148,136,0.2)] flex items-center justify-center flex-1 md:flex-initial">
+            <div className="flex flex-row flex-nowrap justify-center lg:justify-start gap-3 md:gap-4 mb-8 md:mb-12 px-2">
+              <a href="#projects" className="group relative px-4 py-3.5 md:px-10 md:py-6 bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-xl md:rounded-2xl font-black text-[11px] md:text-[13px] uppercase tracking-[0.15em] md:tracking-[0.2em] overflow-hidden transition-all duration-200 md:hover:shadow-[0_20px_40px_rgba(13,148,136,0.35)] md:hover:-translate-y-1 active:scale-95 shadow-[0_10px_20px_rgba(13,148,136,0.2)] flex items-center justify-center flex-1 md:flex-initial">
                 <span className="relative z-10 flex items-center gap-1 md:gap-2">
                   Projects <span className="text-sm md:text-lg group-hover:translate-x-1 transition-transform">→</span>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-teal-600 opacity-0 group-hover:opacity-100 transition-all duration-200" />
               </a>
               
-              <a href="/resume.pdf" download className="group px-4 py-3 md:px-10 md:py-6 bg-[#1e293b] dark:bg-white text-white dark:text-[#0f172a] rounded-xl md:rounded-2xl font-black text-[9px] md:text-[13px] uppercase tracking-[0.1em] md:tracking-[0.2em] transition-all duration-200 hover:bg-[#0f172a] dark:hover:bg-gray-100 hover:-translate-y-1 active:scale-95 shadow-[0_10px_20px_rgba(0,0,0,0.1)] flex items-center justify-center flex-1 md:flex-initial">
+              <a href="/resume.pdf" download className="group px-4 py-3.5 md:px-10 md:py-6 bg-[#1e293b] dark:bg-white text-white dark:text-[#0f172a] rounded-xl md:rounded-2xl font-black text-[11px] md:text-[13px] uppercase tracking-[0.15em] md:tracking-[0.2em] transition-all duration-200 md:hover:bg-[#0f172a] dark:md:hover:bg-gray-100 md:hover:-translate-y-1 active:scale-95 shadow-[0_10px_20px_rgba(0,0,0,0.1)] flex items-center justify-center flex-1 md:flex-initial">
                 <span className="flex items-center gap-1 md:gap-2 text-center">
                   Resume 
                   <svg className="hidden sm:block w-4 h-4 md:w-5 md:h-5 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3">

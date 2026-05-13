@@ -7,11 +7,11 @@ export default function PageLoader({ isVisible = true, onComplete, projectName =
   useEffect(() => {
     if (isVisible) {
       setShouldRender(true);
-      // Auto-complete after 1.5s to keep it fast
+      // Auto-complete after 2s to ensure next page has time to prepare
       const timer = setTimeout(() => {
         setShouldRender(false);
         if (onComplete) onComplete();
-      }, 1500);
+      }, 2000);
       return () => clearTimeout(timer);
     } else {
       setShouldRender(false);
@@ -69,7 +69,7 @@ export default function PageLoader({ isVisible = true, onComplete, projectName =
           <div className="h-[4px] w-full bg-white/5 rounded-full overflow-hidden border border-white/10 relative">
             <div 
               className="h-full bg-gradient-to-r from-teal-500 to-emerald-400 rounded-full relative shadow-[0_0_15px_rgba(20,184,166,0.5)]"
-              style={{ animation: 'progress-fill 1.2s ease-out forwards' }}
+              style={{ animation: 'progress-fill 1.8s ease-out forwards' }}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-100%]" 
                    style={{ animation: 'shimmer 1.5s infinite linear' }}

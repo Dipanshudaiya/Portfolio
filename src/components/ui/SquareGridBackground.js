@@ -10,6 +10,17 @@ export default function SquareGridBackground() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+
+    // Performance Optimization: Disable interactive grid on mobile/touch devices
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const isMobile = window.innerWidth < 768;
+    
+    if (isTouchDevice || isMobile) {
+      // Hide canvas on mobile to save resources
+      canvas.style.display = 'none';
+      return;
+    }
+
     const ctx = canvas.getContext('2d', { alpha: true });
     let animationFrameId;
 

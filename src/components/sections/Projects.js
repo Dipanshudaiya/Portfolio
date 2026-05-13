@@ -13,12 +13,12 @@ export default function Projects() {
   const handleProjectClick = (e, project) => {
     e.preventDefault();
     setLoadingProject(project);
+    // Start navigation immediately to overlap with loader animation
+    router.push(`/projects/${project.id}`);
   };
 
   const handleLoadingComplete = () => {
-    if (loadingProject) {
-      router.push(`/projects/${loadingProject.id}`);
-    }
+    // Animation finished
   };
 
   const renderProjectCard = (project, index, isMobile = false) => (
