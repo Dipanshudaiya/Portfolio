@@ -27,6 +27,9 @@ export const viewport = {
   initialScale: 1,
 };
 
+import { LoadingProvider } from "@/context/LoadingContext";
+import GlobalLoaderTrigger from "@/components/ui/GlobalLoaderTrigger";
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
@@ -38,11 +41,14 @@ export default function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://img.icons8.com" />
       </head>
       <body className="antialiased overflow-x-hidden selection:bg-indigo-600 selection:text-white bg-[#f8fafc] dark:bg-[#030303]">
-        <BackgroundSoul />
-        <SquareGridBackground />
-        <ScrollProgress />
-        <CustomCursor />
-        {children}
+        <LoadingProvider>
+          <GlobalLoaderTrigger />
+          <BackgroundSoul />
+          <SquareGridBackground />
+          <ScrollProgress />
+          <CustomCursor />
+          {children}
+        </LoadingProvider>
       </body>
     </html>
   );

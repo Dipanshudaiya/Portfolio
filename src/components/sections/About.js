@@ -2,23 +2,17 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import PageLoader from '../ui/PageLoader';
+import { useLoading } from '@/context/LoadingContext';
 
 export default function About() {
   const router = useRouter();
-  const [isRedirecting, setIsRedirecting] = useState(false);
+  const { startLoading } = useLoading();
 
   const handleAboutClick = (e) => {
     e.preventDefault();
-    setIsRedirecting(true);
+    startLoading();
     // Start navigation immediately so Next.js can pre-load in background
     router.push('/about');
-  };
-
-  const handleLoadingComplete = () => {
-    // PageLoader finished its animation
-    // No need to call router.push here anymore as it started on click
   };
 
   const HIGHLIGHTS = [
@@ -34,7 +28,6 @@ export default function About() {
 
   return (
     <section id="about" className="py-[60px] md:py-[60px] relative overflow-visible bg-transparent antialiased">
-      <PageLoader isVisible={isRedirecting} projectName="About Me" onComplete={handleLoadingComplete} />
 
       <style dangerouslySetInnerHTML={{ __html: `
         @keyframes border-flow-teal {

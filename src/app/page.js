@@ -14,7 +14,6 @@ import PageLoader from '@/components/ui/PageLoader';
 export default function Home() {
   return (
     <div className="relative w-full min-h-screen">
-      <PageLoader projectName="Portfolio" />
       {/* Noise Overlay for tactile feel */}
 
       <div className="noise-overlay" />

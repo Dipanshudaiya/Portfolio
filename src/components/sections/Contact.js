@@ -10,7 +10,7 @@ export default function Contact() {
 
   const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
     
@@ -24,13 +24,36 @@ export default function Contact() {
 
     setSendStatus('sending');
     
-    // Simulate send (fallback: open mailto)
-    setTimeout(() => {
-      window.location.href = `mailto:dipanshudaiya4@gmail.com?subject=Message from ${formData.name}&body=${encodeURIComponent(formData.message)}%0A%0AFrom: ${formData.email}`;
-      setSendStatus('sent');
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setSendStatus('idle'), 4000);
-    }, 1500);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "b87d5275-d058-47f1-b39e-c69344f677ec",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `New Message from Portfolio: ${formData.name}`,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setSendStatus('sent');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setSendStatus('idle'), 5000);
+      } else {
+        setSendStatus('idle');
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Form error:", error);
+      setSendStatus('idle');
+      alert("Something went wrong. Please check your connection.");
+    }
   };
 
   const CONTACT_INFO = [
@@ -199,7 +222,7 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="John Doe"
                         required
-                        className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl md:rounded-2xl px-4 py-3 md:py-4 outline-none focus:border-teal-500/50 transition-all font-medium text-xs md:text-base"
+                        className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl md:rounded-2xl px-4 py-3 md:py-4 outline-none focus:border-teal-500/50 focus:bg-white/10 dark:focus:bg-white/10 transition-all font-medium text-gray-900 dark:text-white text-xs md:text-base placeholder:text-gray-400 dark:placeholder:text-gray-500"
                       />
                     </div>
                     <div className="flex flex-col gap-1.5">
@@ -211,7 +234,7 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="john@example.com"
                         required
-                        className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl md:rounded-2xl px-4 py-3 md:py-4 outline-none focus:border-teal-500/50 transition-all font-medium text-xs md:text-base"
+                        className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl md:rounded-2xl px-4 py-3 md:py-4 outline-none focus:border-teal-500/50 focus:bg-white/10 dark:focus:bg-white/10 transition-all font-medium text-gray-900 dark:text-white text-xs md:text-base placeholder:text-gray-400 dark:placeholder:text-gray-500"
                       />
                     </div>
                   </div>
@@ -224,7 +247,7 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="How can I help you?"
                       required
-                      className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl md:rounded-[1.5rem] px-4 py-4 md:py-5 outline-none focus:border-teal-500/50 transition-all font-medium text-xs md:text-base resize-none"
+                      className="bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl md:rounded-[1.5rem] px-4 py-4 md:py-5 outline-none focus:border-teal-500/50 focus:bg-white/10 dark:focus:bg-white/10 transition-all font-medium text-gray-900 dark:text-white text-xs md:text-base resize-none placeholder:text-gray-400 dark:placeholder:text-gray-500"
                     ></textarea>
                   </div>
 

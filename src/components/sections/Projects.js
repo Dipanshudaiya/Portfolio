@@ -4,21 +4,17 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { projectsData } from '../../data/projectsData';
-import PageLoader from '../ui/PageLoader';
+import { useLoading } from '@/context/LoadingContext';
 
 export default function Projects() {
   const router = useRouter();
-  const [loadingProject, setLoadingProject] = useState(null);
+  const { startLoading } = useLoading();
 
   const handleProjectClick = (e, project) => {
     e.preventDefault();
-    setLoadingProject(project);
+    startLoading();
     // Start navigation immediately to overlap with loader animation
     router.push(`/projects/${project.id}`);
-  };
-
-  const handleLoadingComplete = () => {
-    // Animation finished
   };
 
   const renderProjectCard = (project, index, isMobile = false) => (
@@ -90,15 +86,6 @@ export default function Projects() {
 
   return (
     <section id="projects" className="py-12 md:py-16 w-full bg-transparent overflow-hidden">
-      <AnimatePresence>
-        {loadingProject && (
-          <PageLoader 
-            isVisible={true} 
-            projectName={loadingProject.title} 
-            onComplete={handleLoadingComplete} 
-          />
-        )}
-      </AnimatePresence>
 
       <div className="container px-6">
         {/* Section Header */}

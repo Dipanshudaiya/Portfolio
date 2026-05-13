@@ -8,8 +8,8 @@ import { FlipButton, FlipLink } from '../ui/FlipButton';
 const NAV_LINKS = [
   { name: 'Home', href: '/#home', id: 'home', icon: '🏠' },
   { name: 'About', href: '/#about', id: 'about', icon: '👤' },
-  { name: 'Projects', href: '/#projects', id: 'projects', icon: '📁' },
   { name: 'Skills', href: '/#skills', id: 'skills', icon: '⚡' },
+  { name: 'Projects', href: '/#projects', id: 'projects', icon: '📁' },
   { name: 'Contact', href: '/#contact', id: 'contact', icon: '📧' },
 ];
 

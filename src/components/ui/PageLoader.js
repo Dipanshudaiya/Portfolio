@@ -3,13 +3,19 @@ import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function PageLoader({ isVisible = true, onComplete, projectName = "Portfolio" }) {
+export default function PageLoader({ isVisible = false, onComplete, projectName = "Portfolio" }) {
   const [progress, setProgress] = useState(0);
   const [shouldRender, setShouldRender] = useState(isVisible);
   const [isFinishing, setIsFinishing] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const initialPathname = useRef(pathname);
   const progressTimer = useRef(null);
+
+  // Hydration safety
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Initialize and handle progress
   useEffect(() => {
@@ -71,7 +77,7 @@ export default function PageLoader({ isVisible = true, onComplete, projectName =
     }, 1000); // Increased to 1s for a more intentional feel
   };
 
-  if (!shouldRender) return null;
+  if (!mounted || !shouldRender) return null;
 
   return (
     <AnimatePresence>
