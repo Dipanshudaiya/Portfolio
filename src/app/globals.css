@@ -79,12 +79,18 @@
 }
 
 body {
-  cursor: none !important;
+  /* Only hide default cursor on desktop */
+  cursor: auto;
+}
+
+@media (min-pointer: fine) {
+  body {
+    cursor: none !important;
+  }
 }
 
 /* ─── Performance Optimizations ─── */
 html {
-  scroll-behavior: smooth;
   -webkit-tap-highlight-color: transparent;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

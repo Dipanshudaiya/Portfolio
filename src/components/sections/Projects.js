@@ -33,12 +33,12 @@ export default function Projects() {
       `}
     >
       {/* Project Image */}
-      <div className="relative h-32 md:h-56 w-full overflow-hidden cursor-pointer bg-gray-50 dark:bg-white/5 border-b border-gray-100 dark:border-white/5" onClick={(e) => handleProjectClick(e, project)}>
+      <div className="relative h-44 md:h-56 w-full overflow-hidden cursor-pointer bg-gray-50 dark:bg-white/5 border-b border-gray-100 dark:border-white/5" onClick={(e) => handleProjectClick(e, project)}>
         <Image
           src={project.image}
           alt={project.title}
           fill
-          sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 400px"
+          sizes="(max-width: 768px) 85vw, (max-width: 1200px) 33vw, 400px"
           className="object-cover transition-transform duration-1000 group-hover:scale-105"
         />
       </div>
@@ -119,10 +119,31 @@ export default function Projects() {
           </h2>
         </div>
 
+        {/* Mobile Swipe Hint */}
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex md:hidden items-center justify-center gap-3 mb-8"
+        >
+          <div className="px-4 py-2 bg-white/50 dark:bg-white/5 backdrop-blur-md border border-gray-200 dark:border-white/10 rounded-full flex items-center gap-3 shadow-sm">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">Swipe projects</span>
+            <motion.div
+              animate={{ x: [0, 5, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              className="text-teal-500"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </motion.div>
+          </div>
+        </motion.div>
+
         {/* Project Grid: Responsive System */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
+        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8 overflow-x-auto md:overflow-x-visible pb-10 md:pb-0 snap-x snap-mandatory no-scrollbar -mx-6 px-6 md:mx-0 md:px-0">
           {projectsData.map((project, index) => (
-            <div key={project.id} className="md:contents">
+            <div key={project.id} className="min-w-[85vw] md:min-w-0 snap-center md:contents">
               <div className="md:hidden contents">
                  {renderProjectCard(project, index, true)}
               </div>

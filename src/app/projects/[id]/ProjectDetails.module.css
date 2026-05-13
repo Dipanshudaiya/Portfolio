@@ -672,32 +672,39 @@
   margin-bottom: 1.5rem;
 }
 .galleryTab {
-  padding: 8px 20px;
-  background: var(--bg-stats);
-  border: 1px solid var(--glass-border);
-  border-radius: 100px;
-  color: var(--text-secondary);
+  padding: 10px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: #94a3b8;
   font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .galleryTab:hover {
-  border-color: var(--theme-color);
-  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
 }
+
 .galleryTabActive {
-  background: var(--theme-color);
+  background: var(--theme-color) !important;
   color: #FFFFFF !important;
-  border-color: var(--theme-color);
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--theme-color) 30%, transparent);
+  border-color: var(--theme-color) !important;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--theme-color) 40%, transparent) !important;
 }
+
 :global([data-theme='light']) .galleryTab {
-  background: #FFFFFF;
-  border-color: rgba(0, 0, 0, 0.08);
+  background: #f1f5f9;
+  border-color: rgba(0, 0, 0, 0.05);
+  color: #64748b;
 }
+
 :global([data-theme='light']) .galleryTabActive {
-  background: var(--theme-color);
+  background: var(--theme-color) !important;
   color: #FFFFFF !important;
 }
 
@@ -706,25 +713,24 @@
   display: flex;
   justify-content: center;
   gap: 0.6rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
+
 .dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--glass-border);
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
   cursor: pointer;
-  transition: var(--transition);
+  transition: all 0.4s ease;
 }
+
 :global([data-theme='light']) .dot {
   background: rgba(0, 0, 0, 0.1);
 }
-.dot:hover {
-  background: var(--text-secondary);
-}
+
 .dotActive {
   background: var(--theme-color);
-  box-shadow: 0 0 8px var(--theme-color);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--theme-color) 50%, transparent);
 }
 
 /* ============================================
@@ -835,15 +841,15 @@
     width: 100% !important;
     overflow-x: hidden;
   }
+  .main::after, .main::before {
+    animation: none !important;
+    opacity: 0.5; /* Keep static orbs but reduce opacity for performance */
+  }
   .aboutGrid {
     grid-template-columns: 1fr;
   }
   .actionFooter {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
-  }
-  .actionCardResume {
-    grid-column: span 2;
+    display: none; /* Hide on mobile because of sticky bar */
   }
   .actionCard, .actionCardResume {
     padding: 1rem;
@@ -899,8 +905,16 @@
   .heroSection {
     gap: 2rem;
   }
-  .aboutSection, .featuresSection, .techStackSection, .screenshotsSection {
-    padding: 1.2rem 0.8rem 1.2rem 1.2rem;
+  .aboutSection, .featuresSection, .techStackSection {
+    padding: 1.2rem;
+  }
+  .screenshotsSection {
+    padding: 1.2rem 0.5rem;
+  }
+  .galleryBtn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.8rem;
   }
   .techCard {
     padding: 0.8rem;
