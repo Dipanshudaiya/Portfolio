@@ -1,6 +1,7 @@
 .main {
   min-height: 100vh;
   width: 100%;
+  min-width: 100vw;
   padding: 100px 0 60px;
   --theme-color: var(--theme-color-dark, #8B5CF6);
   position: relative;
@@ -23,21 +24,26 @@
 .main::after {
   content: '';
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1800px;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(ellipse 60% 50% at calc(50% - 400px) 25%,  color-mix(in srgb, var(--theme-color) 18%, transparent) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 45% at calc(50% + 450px) 70%,  color-mix(in srgb, var(--theme-color) 12%, transparent) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at calc(50% - 500px) 25%,  color-mix(in srgb, var(--theme-color) 18%, transparent) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 45% at calc(50% + 550px) 70%,  color-mix(in srgb, var(--theme-color) 12%, transparent) 0%, transparent 70%),
     radial-gradient(ellipse 40% 35% at 50% 100%,               color-mix(in srgb, var(--theme-color) 10%, transparent) 0%, transparent 70%);
   animation: orbFloat 12s ease-in-out infinite alternate;
 }
 
 @keyframes orbFloat {
-  0%   { transform: translate(0px,   0px)   scale(1); }
-  33%  { transform: translate(12px,  -8px)  scale(1.04); }
-  66%  { transform: translate(-8px,  10px)  scale(0.97); }
-  100% { transform: translate(6px,   -4px)  scale(1.02); }
+  0%   { transform: translate(-50%, 0px)   scale(1); }
+  33%  { transform: translate(-50%, -8px)  scale(1.04); }
+  66%  { transform: translate(-50%, 10px)  scale(0.97); }
+  100% { transform: translate(-50%, -4px)  scale(1.02); }
 }
 
 /* Subtle top-to-bottom uniqueness tint */
@@ -67,14 +73,24 @@
 }
 
 :global([data-theme='light']) .main::after {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1800px;
+  height: 100%;
   background:
-    radial-gradient(ellipse 65% 55% at calc(50% - 450px) 20%,  color-mix(in srgb, var(--theme-color) 14%, transparent) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 50% at calc(50% + 400px) 75%,  color-mix(in srgb, var(--theme-color) 10%, transparent) 0%, transparent 70%),
+    radial-gradient(ellipse 65% 55% at calc(50% - 550px) 20%,  color-mix(in srgb, var(--theme-color) 14%, transparent) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 50% at calc(50% + 500px) 75%,  color-mix(in srgb, var(--theme-color) 10%, transparent) 0%, transparent 70%),
     radial-gradient(ellipse 45% 40% at 50% 95%,               color-mix(in srgb, var(--theme-color)  8%, transparent) 0%, transparent 70%);
   animation: orbFloat 14s ease-in-out infinite alternate;
 }
 
 :global([data-theme='light']) .main::before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(180deg, color-mix(in srgb, var(--theme-color) 6%, transparent) 0%, transparent 30%);
 }
 
@@ -841,9 +857,20 @@
     width: 100% !important;
     overflow-x: hidden;
   }
-  .main::after, .main::before {
+  .main::after {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 100vw;
+    opacity: 0.4;
+    background:
+      radial-gradient(ellipse 80% 50% at calc(50% - 120px) 20%, color-mix(in srgb, var(--theme-color) 25%, transparent) 0%, transparent 75%),
+      radial-gradient(ellipse 80% 50% at calc(50% + 120px) 60%, color-mix(in srgb, var(--theme-color) 20%, transparent) 0%, transparent 75%);
     animation: none !important;
-    opacity: 0.5; /* Keep static orbs but reduce opacity for performance */
+  }
+  .main::before {
+    opacity: 0.6;
+    animation: none !important;
   }
   .aboutGrid {
     grid-template-columns: 1fr;

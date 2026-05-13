@@ -29,8 +29,7 @@ export default function SquareGridBackground() {
     const boxSize = cellSize - gap;
 
     const updateRect = () => {
-      const maxWidth = 1600;
-      canvas.width = Math.min(window.innerWidth, maxWidth);
+      canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
       canvasRect.current = canvas.getBoundingClientRect();
     };
@@ -95,9 +94,9 @@ export default function SquareGridBackground() {
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex justify-center">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <div 
-        className="absolute inset-0 max-w-[1600px] w-full h-full opacity-[0.08]"
+        className="absolute inset-0 w-full h-full opacity-[0.08]"
         style={{
           backgroundImage: `
             linear-gradient(to right, #14b8a6 1px, transparent 1px),
@@ -109,7 +108,7 @@ export default function SquareGridBackground() {
       />
       <canvas
         ref={canvasRef}
-        className="w-full max-w-[1600px] h-full bg-transparent border-x border-teal-500/5 dark:border-white/5"
+        className="w-full h-full bg-transparent border-x border-teal-500/5 dark:border-white/5"
       />
     </div>
   );
