@@ -5,22 +5,10 @@ export default function SquareGridBackground() {
   const canvasRef = useRef(null);
   const mousePos = useRef({ x: -2000, y: -2000 });
   const gridCells = useRef(new Map());
-  const canvasRect = useRef({ left: 0, top: 0 });
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-
-    // Performance Optimization: Disable interactive grid on mobile/touch devices
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    const isMobile = window.innerWidth < 768;
-    
-    if (isTouchDevice || isMobile) {
-      // Hide canvas on mobile to save resources
-      canvas.style.display = 'none';
-      return;
-    }
-
     const ctx = canvas.getContext('2d', { alpha: true });
     let animationFrameId;
 
@@ -28,21 +16,35 @@ export default function SquareGridBackground() {
     const gap = 6; 
     const boxSize = cellSize - gap;
 
-    const updateRect = () => {
-      canvas.width = window.innerWidth;
+    const resize = () => {
+      // Limit width to 1600px to ensure it shrinks on zoom out
+      const maxWidth = 1600;
+      canvas.width = Math.min(window.innerWidth, maxWidth);
       canvas.height = window.innerHeight;
-      canvasRect.current = canvas.getBoundingClientRect();
     };
 
     const drawGrid = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
+      const isDark = document.documentElement.classList.contains('dark');
       const cols = Math.ceil(canvas.width / cellSize);
       const rows = Math.ceil(canvas.height / cellSize);
 
-      // Use cached rect instead of calling getBoundingClientRect() in the loop
-      const relativeX = mousePos.current.x - canvasRect.current.left;
-      const relativeY = mousePos.current.y - canvasRect.current.top;
+      // 1. Draw Subtle Base Grid
+      ctx.lineWidth = 1;
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const x = i * cellSize + gap / 2;
+          const y = j * cellSize + gap / 2;
+          ctx.strokeStyle = isDark ? 'rgba(20, 184, 166, 0.08)' : 'rgba(13, 148, 136, 0.08)';
+          ctx.strokeRect(x, y, boxSize, boxSize);
+        }
+      }
+
+      // 2. Track Mouse - Relative to Canvas position
+      const rect = canvas.getBoundingClientRect();
+      const relativeX = mousePos.current.x - rect.left;
+      const relativeY = mousePos.current.y - rect.top;
       
       const hoverX = Math.floor(relativeX / cellSize);
       const hoverY = Math.floor(relativeY / cellSize);
@@ -51,27 +53,28 @@ export default function SquareGridBackground() {
         gridCells.current.set(`${hoverX}-${hoverY}`, 1.0);
       }
 
-      if (gridCells.current.size > 0) {
-        gridCells.current.forEach((opacity, key, map) => {
-          const [xIdx, yIdx] = key.split('-').map(Number);
-          const x = xIdx * cellSize + gap / 2;
-          const y = yIdx * cellSize + gap / 2;
-          
-          const r = 20, g = 184, b = 166; 
-          ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity * 0.25})`;
-          ctx.fillRect(x, y, boxSize, boxSize);
-          ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity * 0.7})`;
-          ctx.lineWidth = 1.5;
-          ctx.strokeRect(x, y, boxSize, boxSize);
+      // 3. Render Glowing Cells
+      gridCells.current.forEach((opacity, key, map) => {
+        const [xIdx, yIdx] = key.split('-').map(Number);
+        const x = xIdx * cellSize + gap / 2;
+        const y = yIdx * cellSize + gap / 2;
+        
+        const r = 20, g = 184, b = 166; 
+        
+        ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity * 0.25})`;
+        ctx.fillRect(x, y, boxSize, boxSize);
+        
+        ctx.strokeStyle = `rgba(${r}, ${g}, ${b}, ${opacity * 0.7})`;
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(x, y, boxSize, boxSize);
 
-          const newOpacity = opacity - 0.02; 
-          if (newOpacity <= 0) {
-            map.delete(key);
-          } else {
-            map.set(key, newOpacity);
-          }
-        });
-      }
+        const newOpacity = opacity - 0.02; 
+        if (newOpacity <= 0) {
+          map.delete(key);
+        } else {
+          map.set(key, newOpacity);
+        }
+      });
 
       animationFrameId = requestAnimationFrame(drawGrid);
     };
@@ -80,35 +83,24 @@ export default function SquareGridBackground() {
       mousePos.current = { x: e.clientX, y: e.clientY };
     };
 
-    window.addEventListener('resize', updateRect);
+    window.addEventListener('resize', resize);
     window.addEventListener('mousemove', handleMouseMove);
 
-    updateRect();
+    resize();
     drawGrid();
 
     return () => {
-      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      <div 
-        className="absolute inset-0 w-full h-full opacity-[0.08]"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, #14b8a6 1px, transparent 1px),
-            linear-gradient(to bottom, #14b8a6 1px, transparent 1px)
-          `,
-          backgroundSize: '60px 60px',
-          maskImage: 'radial-gradient(circle at center, black, transparent 80%)'
-        }}
-      />
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden flex justify-center">
       <canvas
         ref={canvasRef}
-        className="w-full h-full bg-transparent border-x border-teal-500/5 dark:border-white/5"
+        className="w-full max-w-[1600px] h-full bg-transparent border-x border-teal-500/5 dark:border-white/5"
       />
     </div>
   );

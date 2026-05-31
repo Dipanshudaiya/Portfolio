@@ -21,22 +21,11 @@ const SKILLS_BOTTOM = [
 ];
 
 export default function Skills() {
-  const renderSkillIcon = (item, size = 80) => (
-    <div 
-      className="relative group/logo rounded-2xl md:rounded-[1.5rem] overflow-hidden p-[1px] bg-teal-500/20"
-      style={{ height: `${size}px`, width: `${size}px` }}
-    >
-      <div className="relative z-20 w-full h-full flex items-center justify-center bg-white dark:bg-[#0a0a0a] rounded-[calc(1rem-1px)] md:rounded-[calc(1.5rem-1px)] p-3 md:p-4 shadow-lg group-hover/logo:bg-teal-500/10 transition-all duration-300">
-        <img src={item.src} alt={item.alt} className="w-full h-full object-contain antialiased" />
-      </div>
-    </div>
-  );
-
   return (
-    <section id="skills" className="relative w-full py-[60px] md:py-[60px] bg-transparent overflow-hidden antialiased">
+    <section id="skills" className="w-full py-[100px] bg-transparent">
       <div className="container">
         {/* Section Header */}
-        <div className="flex flex-col items-center mb-10 md:mb-16 text-center">
+        <div className="flex flex-col items-center mb-16 text-center">
           <div className="px-6 py-2 bg-teal-50 dark:bg-teal-500/10 border border-teal-100 dark:border-teal-500/20 rounded-full shadow-sm flex items-center gap-4 mb-6">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
@@ -48,40 +37,30 @@ export default function Skills() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
             </span>
           </div>
-          <h2 className="text-[clamp(2.2rem,5vw,3.5rem)] font-black tracking-tighter text-gray-900 dark:text-white">
+          <h2 className="text-[clamp(2rem,4vw,3rem)] font-black tracking-tighter text-gray-900 dark:text-white">
             Technologies I <span className="text-teal-500">Mastered.</span>
           </h2>
         </div>
 
-        {/* Desktop View: Single Line Loop */}
-        <div className="hidden lg:block max-w-[1400px] mx-auto overflow-hidden py-8">
+        {/* Single Line Big Logo Loop */}
+        <div className="max-w-[1280px] mx-auto overflow-hidden py-4">
           <LogoLoop 
             direction="left" 
             logos={[...SKILLS_TOP, ...SKILLS_BOTTOM]} 
             speed={40} 
-            logoHeight={85} 
-            gap={45}
-            renderItem={(item) => renderSkillIcon(item, 85)}
-          />
-        </div>
-
-        {/* Mobile View: Two Lines Loop (Opposite Directions) */}
-        <div className="block lg:hidden space-y-6 py-4">
-          <LogoLoop 
-            direction="left" 
-            logos={SKILLS_TOP} 
-            speed={25} 
-            logoHeight={65} 
-            gap={20}
-            renderItem={(item) => renderSkillIcon(item, 65)}
-          />
-          <LogoLoop 
-            direction="right" 
-            logos={SKILLS_BOTTOM} 
-            speed={25} 
-            logoHeight={65} 
-            gap={20}
-            renderItem={(item) => renderSkillIcon(item, 65)}
+            logoHeight={80} // Increased size significantly
+            gap={40}
+            renderItem={(item) => (
+              <div className="relative h-[80px] w-[80px] group/logo rounded-2xl overflow-hidden p-[2px]">
+                {/* Spinning border layer */}
+                <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_70%,rgba(20,184,166,0.8)_100%)] animate-[spin_2s_linear_infinite] opacity-0 group-hover/logo:opacity-100 transition-opacity duration-300" />
+                
+                {/* Content inner box */}
+                <div className="relative z-10 w-full h-full flex items-center justify-center bg-white dark:bg-[#0a0a0a] border border-gray-200 group-hover/logo:border-transparent dark:border-transparent rounded-[calc(1rem-2px)] p-4 shadow-lg group-hover/logo:bg-teal-500/5 transition-all duration-300">
+                  <img src={item.src} alt={item.alt} className="w-full h-full object-contain" />
+                </div>
+              </div>
+            )}
           />
         </div>
       </div>

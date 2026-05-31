@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { projectsData } from '../../../data/projectsData';
 import ProjectGallery from '../../../components/projects/ProjectGallery';
-import ProjectAboutTabs from '../../../components/projects/ProjectAboutTabs';
 import HeroImageSlider from '../../../components/hero/HeroImageSlider';
 import ThemeToggle from '../../../components/layout/ThemeToggle';
 import styles from './ProjectDetails.module.css';
@@ -96,11 +95,26 @@ export default async function ProjectDetailsPage({ params }) {
             <span className={styles.sectionIcon}>📄</span>
             <h2 className={styles.sectionTitle}>About The Project</h2>
           </div>
-          <ProjectAboutTabs 
-            problem={project.problem} 
-            solution={project.solution} 
-            impact={project.realWorldImpact} 
-          />
+          <div className={styles.aboutGrid}>
+            <div className={styles.aboutCard}>
+              <h3 className={styles.cardTitle} style={{ color: '#ef4444' }}>
+                <span className={styles.cardIcon}>🚨</span> Problem
+              </h3>
+              <p className={styles.cardText}>{project.problem}</p>
+            </div>
+            <div className={styles.aboutCard}>
+              <h3 className={styles.cardTitle} style={{ color: '#10b981' }}>
+                <span className={styles.cardIcon}>✅</span> Solution
+              </h3>
+              <p className={styles.cardText}>{project.solution}</p>
+            </div>
+            <div className={styles.aboutCard}>
+              <h3 className={styles.cardTitle} style={{ color: '#3b82f6' }}>
+                <span className={styles.cardIcon}>🌍</span> Real World Impact
+              </h3>
+              <p className={styles.cardText}>{project.realWorldImpact}</p>
+            </div>
+          </div>
         </section>
 
         {/* Features & Tech Stack */}

@@ -50,9 +50,9 @@ export default function ThemeToggle() {
         <motion.div
           animate={{
             scale: theme === 'light' ? 1 : 0.8,
-            rotate: theme === 'light' ? 0 : -45,
-            color: theme === 'light' ? 'var(--accent-primary)' : 'var(--text-secondary)'
+            rotate: theme === 'light' ? 0 : -45
           }}
+          style={{ color: theme === 'light' ? 'var(--accent-primary)' : 'var(--text-secondary)', transition: 'color 0.3s ease' }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>
@@ -69,9 +69,9 @@ export default function ThemeToggle() {
         <motion.div
           animate={{
             scale: theme === 'dark' ? 1 : 0.8,
-            rotate: theme === 'dark' ? 0 : 45,
-            color: theme === 'dark' ? 'var(--accent-primary)' : 'var(--text-secondary)'
+            rotate: theme === 'dark' ? 0 : 45
           }}
+          style={{ color: theme === 'dark' ? 'var(--accent-primary)' : 'var(--text-secondary)', transition: 'color 0.3s ease' }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>

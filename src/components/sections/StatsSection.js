@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const STATS = [
-  { value: 3,   suffix: '+', label: 'EXPERIENCE',      title: '3+ YEARS CODING', icon: '🚀' },
-  { value: 20,  suffix: '+', label: 'SPECIALIST',      title: 'MERN STACK',     icon: '💻' },
-  { value: 100, suffix: '%', label: 'MAINTAINABLE',    title: 'CLEAN CODE',     icon: '✨' },
-  { value: 50,  suffix: '+', label: 'GLOBAL CLIENTS',  title: 'HAPPY SUCCESS',  icon: '🎯' },
+  { value: 3,   suffix: '+', label: 'Years Experience',    icon: '🚀' },
+  { value: 15,  suffix: '+', label: 'Projects Built',      icon: '💻' },
+  { value: 8,   suffix: '+', label: 'Technologies',        icon: '⚡' },
+  { value: 100, suffix: '%', label: 'Client Satisfaction', icon: '🎯' },
 ];
 
 function CountUp({ target, suffix, started }) {
@@ -46,53 +46,33 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section id="stats" ref={sectionRef} className="pt-[40px] md:pt-[60px] pb-[40px] md:pb-[40px] w-full overflow-hidden bg-transparent">
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes border-flow-teal {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        .laser-mask {
-          position: absolute;
-          inset: 0;
-          background: transparent;
-          border: 1.5px solid transparent;
-          -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: destination-out;
-          mask-composite: exclude;
-          pointer-events: none;
-          z-index: 10;
-        }
-      `}} />
-      <div className="container px-4 md:px-0">
+    <section id="stats" ref={sectionRef} className="py-[100px] w-full overflow-hidden bg-transparent">
+      <div className="container">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {STATS.map((stat, i) => (
-            <div
+            <motion.div
               key={i}
-              className="relative group rounded-3xl md:rounded-[2.5rem] bg-gray-200 dark:bg-white/10 overflow-hidden transition-all duration-300 h-full p-[1.5px] min-h-[140px] md:min-h-[220px] tap-highlight-transparent"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              className="group relative overflow-hidden p-[1px] rounded-3xl md:rounded-[2.5rem] transition-all duration-200 text-center hover:-translate-y-2 cursor-pointer shadow-lg hover:shadow-[0_20px_50px_rgba(13,148,136,0.2)]"
             >
-              {/* THE LASER BORDER - MASKED */}
-              <div className="absolute inset-0 z-10 pointer-events-none">
-                <div className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_40%,#14b8a6_50%,transparent_60%)] animate-[border-flow-teal_6s_linear_infinite] [will-change:transform] [backface-visibility:hidden]" />
-                <div className="laser-mask rounded-3xl md:rounded-[2.5rem]" />
-              </div>
-
-              {/* Inner Card Box */}
-              <div className="relative z-20 h-full w-full bg-white dark:bg-[#0a0a0a] rounded-[calc(1.5rem-1.5px)] md:rounded-[calc(2.5rem-1.5px)] overflow-hidden flex flex-col items-center justify-center p-4 md:p-8 antialiased">
-                <div className="w-10 h-10 md:w-16 md:h-16 bg-teal-50 dark:bg-teal-500/5 flex items-center justify-center rounded-xl md:rounded-3xl border border-teal-100 dark:border-teal-500/10 mb-2 md:mb-4 transform group-hover:rotate-12 transition-transform duration-300 text-lg md:text-3xl">
+              {/* Spinning border layer */}
+              <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_70%,rgba(13,148,136,0.8)_100%)] animate-[spin_2s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+              
+              {/* Inner Card Background & Content */}
+              <div className="relative z-10 w-full h-full p-6 md:p-10 bg-white dark:bg-[#0a0a0a] rounded-[calc(1.5rem-1px)] md:rounded-[calc(2.5rem-2px)] flex flex-col items-center justify-center border border-gray-100 group-hover:border-transparent dark:border-transparent transition-colors duration-200">
+                <div className="text-2xl md:text-3xl mb-4 md:mb-6 w-14 h-14 md:w-20 md:h-20 bg-teal-50 dark:bg-teal-500/5 flex items-center justify-center rounded-2xl md:rounded-3xl mx-auto border border-teal-100 dark:border-teal-500/10 transform group-hover:rotate-6 transition-transform duration-200">
                   {stat.icon}
                 </div>
-                <h3 className="text-[10px] md:text-lg font-black text-gray-900 dark:text-white tracking-tighter mb-0.5 md:mb-1 text-center leading-tight">
-                  {stat.title}
+                <h3 className="text-2xl md:text-[clamp(2.5rem,4vw,3.5rem)] font-black text-gray-900 dark:text-white leading-none tracking-tighter mb-2 md:mb-3">
+                  <CountUp target={stat.value} suffix={stat.suffix} started={started} />
                 </h3>
-                <p className="text-[6px] md:text-[10px] font-black text-teal-600 dark:text-teal-400 uppercase tracking-[0.2em] md:tracking-[0.3em] text-center opacity-70">
+                <p className="text-[7px] md:text-[9px] font-black text-teal-600 dark:text-teal-400 uppercase tracking-[0.2em] md:tracking-[0.4em]">
                   {stat.label}
                 </p>
-                <div className="mt-1 md:mt-3 text-[7px] md:text-[10px] font-bold text-gray-400">
-                  <CountUp target={stat.value} suffix={stat.suffix} started={started} /> ACHIEVED
-                </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

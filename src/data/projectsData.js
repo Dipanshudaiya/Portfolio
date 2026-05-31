@@ -14,7 +14,7 @@ export const projectsData = [
       { name: 'Responsive', icon: '📱', color: '#F59E0B' }
     ],
     liveLink: 'https://tailor-shop-lemon.vercel.app/',
-    githubLink: 'https://github.com/Dipanshudaiya/Tailor-shop',
+    githubLink: '#',
     purpose: 'To digitize the workflow of traditional tailor shops, managing custom measurements, orders, and customer communication seamlessly.',
     problem: 'Existing tailor management methods rely on physical notebooks, leading to lost measurements, missed deadlines, and poor customer communication.',
     solution: 'Tailor-Shop provides a clean UI for precise custom measurements, real-time order tracking (cutting, stitching, ready), and automated notifications.',
@@ -57,7 +57,7 @@ export const projectsData = [
       { name: 'Interactive', icon: '🖱️', color: '#F59E0B' }
     ],
     liveLink: 'https://frontend-task-nine-lake.vercel.app/',
-    githubLink: 'https://github.com/Dipanshudaiya/frontend-Task',
+    githubLink: '#',
     purpose: 'To provide teams with a clear, visual way to organize tasks and collaborate effectively in real-time.',
     problem: 'Without proper task tracking, teams often miss deadlines and face miscommunication about who is doing what.',
     solution: 'Developed an interactive drag-and-drop Kanban board interface with real-time updates, ensuring everyone stays on the same page.',
@@ -84,7 +84,7 @@ export const projectsData = [
   },
   {
     id: 'e-commerce',
-    title: 'E-Commerce Platform Basic',
+    title: 'E-Commerce Platform',
     shortDescription: 'A blazing fast, full-featured online shopping experience with secure payments and an admin dashboard.',
     description: 'A full-featured e-commerce platform with cart, orders and payments.',
     image: '/projects/ecommerce.png',
@@ -97,7 +97,7 @@ export const projectsData = [
       { name: 'SSR', icon: '⚡', color: '#F59E0B' }
     ],
     liveLink: 'https://react-task-sigma-eight.vercel.app/',
-    githubLink: 'https://github.com/Dipanshudaiya/react-task',
+    githubLink: '#',
     purpose: 'To create a modern, fast, and scalable online shopping experience for users and an easy management dashboard for admins.',
     problem: 'Many e-commerce sites suffer from slow load times and complicated checkout processes, resulting in high cart abandonment rates.',
     solution: 'Implemented a server-side rendered application using Next.js for blazing fast performance, integrated with Stripe for a secure 1-click checkout.',
@@ -119,7 +119,64 @@ export const projectsData = [
       { name: 'Tailwind CSS', role: 'Styling Framework', icon: 'https://img.icons8.com/color/48/tailwindcss.png' }
     ],
     gallery: ['/projects/ecommerce.png', '/projects/ecommerce.png', '/projects/ecommerce.png', '/projects/ecommerce.png'],
-    themeColorDark: '#095a3fff', // Green for dark mode
-    themeColorLight: '#048153ff' // Darker green for light mode
+    themeColorDark: '#10b981', // Green for dark mode
+    themeColorLight: '#059669' // Darker green for light mode
+  },
+  {
+    id: 'ai-pdf-intellect',
+    title: 'AI PDF Intellect',
+    shortDescription: 'An intelligent platform to interact with PDFs using AI, featuring chat, summaries, mind maps, and quizzes.',
+    description: 'AI PDF Intellect is an advanced document analysis tool that leverages Artificial Intelligence to revolutionize how you interact with PDFs. Upload documents to instantly generate intelligent summaries, interactive visual mind maps, and chat directly with your PDFs. It also features a unique PDF vs PDF comparison tool and automated quizzes based on your document\'s content.',
+    image: '/projects/Ai-Pdf-intellect/Ai-Pdf-intellect0.jpeg',
+    featured: false,
+    tags: ['Next.js', 'AI', 'Tailwind CSS'],
+    featureTags: [
+      { name: 'Smart Chat', icon: '💬', color: '#db15e2ff' },
+      { name: 'Mind Maps', icon: '🧠', color: '#8B5CF6' },
+      { name: 'Compare PDFs', icon: '⚖️', color: '#3B82F6' },
+      { name: 'Quiz Gen', icon: '📝', color: '#10B981' }
+    ],
+    liveLink: 'https://ai-pdf-intellect-1xlw.vercel.app/',
+    githubLink: 'https://github.com/Dipanshudaiya/Ai-pdf-Intellect',
+    purpose: 'To make consuming, analyzing, and studying long PDF documents effortless and highly interactive using AI.',
+    problem: 'Reading lengthy PDFs is time-consuming, and extracting specific information or comparing multiple documents manually is tedious and inefficient.',
+    solution: 'Integrated AI capabilities that allow users to chat with documents, generate visual mind maps, compare PDFs side-by-side, and create instant summaries or quizzes.',
+    realWorldImpact: 'Significantly reduces reading and research time for students and professionals, enhancing learning and information retention through interactive tools.',
+    keyFeatures: [
+      'AI-powered Chat with PDF documents',
+      'Automated visual Mind Map generation',
+      'Instant Document Summarization',
+      'PDF vs PDF comparative analysis',
+      'Interactive Quiz generation from content',
+      'Seamless and responsive Next.js interface'
+    ],
+    techStackDetails: [
+      { name: 'Next.js', role: 'Frontend Framework', icon: 'https://img.icons8.com/fluency/48/nextjs.png' },
+      { name: 'NestJS', role: 'Backend Framework', icon: 'https://img.icons8.com/color/48/nestjs.png' },
+      { name: 'Gemini AI', role: 'AI Intelligence', icon: 'https://img.icons8.com/color/48/google-logo.png' },
+      { name: 'Supabase', role: 'Database & Auth', icon: 'https://img.icons8.com/color/48/supabase.png' },
+      { name: 'Cloudinary', role: 'Image/PDF Storage', icon: 'https://img.icons8.com/color/48/cloudinary.png' },
+      { name: 'Tailwind CSS', role: 'Styling', icon: 'https://img.icons8.com/color/48/tailwindcss.png' }
+    ],
+    gallery: {
+      "User Panel": [
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect0.jpeg",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect1.png",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect2.png",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect3.png",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect4.png",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect5.png",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect6.png",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect7.png"
+      ],
+      "Admin Panel": [
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect8.png",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect9.png",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect10.png",
+        "/projects/Ai-Pdf-intellect/Ai-Pdf-intellect11.png"
+      ]
+    },
+    themeColorDark: '#13c4f0ff', // Purple for dark mode
+    themeColorLight: '#07b0a2ff' // Darker purple for light mode
   }
 ];

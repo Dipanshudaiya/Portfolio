@@ -18,21 +18,7 @@ export default function CustomCursor() {
   const outerX = useSpring(mouseX, { damping: 20, stiffness: 150, mass: 0.8 });
   const outerY = useSpring(mouseY, { damping: 20, stiffness: 150, mass: 0.8 });
 
-  const [isTouchDevice, setIsTouchDevice] = useState(true); // Default true to avoid hydration mismatch, or check in effect
-
   useEffect(() => {
-    // Check if device is a touch device
-    const checkTouch = () => {
-      setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches || 'ontouchstart' in window);
-    };
-    checkTouch();
-    window.addEventListener('resize', checkTouch);
-    return () => window.removeEventListener('resize', checkTouch);
-  }, []);
-
-  useEffect(() => {
-    if (isTouchDevice) return;
-
     const moveMouse = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -59,9 +45,7 @@ export default function CustomCursor() {
       window.removeEventListener('mousemove', moveMouse);
       window.removeEventListener('mouseover', handleHover);
     };
-  }, [mouseX, mouseY, isTouchDevice]);
-
-  if (isTouchDevice) return null;
+  }, [mouseX, mouseY]);
 
   return (
     <>
@@ -84,7 +68,7 @@ export default function CustomCursor() {
 
       {/* Main Dot - Precise and Fast */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-indigo-600 dark:bg-white rounded-full pointer-events-none z-[10000]"
+        className="fixed top-0 left-0 w-2 h-2 bg-indigo-600 dark:bg-white rounded-full pointer-events-none z-[10000] shadow-[0_0_10px_rgba(79,70,229,0.5)]"
         style={{
           x: mouseX,
           y: mouseY,

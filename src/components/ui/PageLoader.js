@@ -1,186 +1,169 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
-export default function PageLoader({ isVisible = false, onComplete, projectName = "Portfolio" }) {
+export const PageLoader = ({ isVisible, onComplete, projectName }) => {
   const [progress, setProgress] = useState(0);
-  const [shouldRender, setShouldRender] = useState(isVisible);
-  const [isFinishing, setIsFinishing] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const pathname = usePathname();
-  const initialPathname = useRef(pathname);
-  const progressTimer = useRef(null);
 
-  // Hydration safety
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Initialize and handle progress
   useEffect(() => {
     if (isVisible) {
-      setShouldRender(true);
       setProgress(0);
-      setIsFinishing(false);
-      initialPathname.current = pathname; // Capture path when starting
+      const duration = 2000; 
+      const interval = 16;
+      const step = 100 / (duration / interval);
 
-      const startProgress = () => {
-        progressTimer.current = setInterval(() => {
-          setProgress(prev => {
-            if (prev < 30) return prev + 3;
-            if (prev < 60) return prev + 1.5;
-            if (prev < 88) return prev + 0.5;
-            if (prev < 95) return prev + 0.1;
-            return prev;
-          });
-        }, 40);
-      };
+      const timer = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(timer);
+            setTimeout(onComplete, 600);
+            return 100;
+          }
+          return prev + step;
+        });
+      }, interval);
 
-      startProgress();
-
-      // Absolute safety timeout
-      const safetyTimeout = setTimeout(() => {
-        finishLoading();
-      }, 5000);
-
-      return () => {
-        if (progressTimer.current) clearInterval(progressTimer.current);
-        clearTimeout(safetyTimeout);
-      };
-    } else if (shouldRender && !isFinishing) {
-      // If external visibility is turned off but we haven't finished yet
-      finishLoading();
+      return () => clearInterval(timer);
     }
-  }, [isVisible]);
+  }, [isVisible, onComplete]);
 
-  // Detect path change to trigger 100%
-  useEffect(() => {
-    if (isVisible && !isFinishing && pathname !== initialPathname.current) {
-      finishLoading();
-    }
-  }, [pathname, isVisible, isFinishing]);
-
-  const finishLoading = () => {
-    if (isFinishing) return;
-    setIsFinishing(true);
-    
-    if (progressTimer.current) clearInterval(progressTimer.current);
-    
-    // Smooth but fast jump to 100%
-    setProgress(100);
-    
-    // Wait for the bar to hit 100% visually and the user to "feel" the completion
-    setTimeout(() => {
-      setShouldRender(false);
-      if (onComplete) onComplete();
-    }, 1000); // Increased to 1s for a more intentional feel
-  };
-
-  if (!mounted || !shouldRender) return null;
+  if (!isVisible) return null;
 
   return (
-    <AnimatePresence>
-      <motion.div 
-        initial={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-0 z-[9999] bg-[#030303] flex items-center justify-center overflow-hidden pointer-events-none"
-      >
-        {/* Background Grain/Noise Effect */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-        
-        {/* Top & Bottom Reveal Panels */}
-        <motion.div 
-          initial={{ y: 0 }}
-          exit={{ y: "-100%" }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="absolute inset-0 bg-[#030303] z-10 origin-top"
-        />
-        <motion.div 
-          initial={{ y: 0 }}
-          exit={{ y: "100%" }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="absolute inset-0 bg-[#030303] z-10 origin-bottom"
-        />
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, transition: { duration: 1, ease: [0.43, 0.13, 0.23, 0.96] } }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#01040a] overflow-hidden"
+    >
+      {/* ─── Strictly Contained Background (Shrinks on Zoom Out) ─── */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex justify-center overflow-hidden">
+        <div className="relative w-full max-w-[1600px] h-full overflow-hidden">
+          
+          {/* Intense Animated Mesh Gradients (Auroras) - Contained */}
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.3, 1],
+              x: ['-10%', '10%', '-10%'],
+              y: ['-5%', '5%', '-5%'],
+            }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+            className="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] bg-teal-600/15 blur-[120px] rounded-full mix-blend-screen"
+          />
+          <motion.div 
+            animate={{ 
+              scale: [1.1, 1, 1.1],
+              x: ['10%', '-10%', '10%'],
+              y: ['5%', '-5%', '5%'],
+            }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+            className="absolute -bottom-[10%] -right-[10%] w-[80%] h-[80%] bg-teal-500/10 blur-[110px] rounded-full mix-blend-screen"
+          />
 
-        <div className="relative z-20 flex flex-col items-center gap-12">
-          {/* Main Logo / Name Reveal */}
-          <div className="relative">
-            {/* Outlined Base Name */}
-            <h1 className="text-[12vw] md:text-[8rem] font-black tracking-[-0.05em] leading-none select-none text-transparent stroke-text opacity-20">
-              DIPANSHU
-            </h1>
-            
-            {/* Filled Animated Name */}
-            <div 
-              className="absolute inset-0 overflow-hidden transition-all duration-300"
-              style={{ clipPath: `inset(${100 - progress}% 0 0 0)` }}
-            >
-              <h1 className="text-[12vw] md:text-[8rem] font-black tracking-[-0.05em] leading-none select-none bg-gradient-to-t from-teal-500 to-emerald-400 bg-clip-text text-transparent">
-                DIPANSHU
-              </h1>
-            </div>
+          {/* Grid Sync - Contained */}
+          <motion.div 
+            animate={{ opacity: [0.03, 0.08, 0.03] }}
+            transition={{ duration: 4, repeat: Infinity }}
+            className="absolute inset-0" 
+            style={{ 
+              backgroundImage: `
+                linear-gradient(to right, rgba(20, 184, 166, 0.3) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(20, 184, 166, 0.3) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px'
+            }} 
+          />
 
-            {/* Horizontal Scanline */}
-            <motion.div 
-              className="absolute left-0 right-0 h-[2px] bg-teal-400/80 shadow-[0_0_20px_rgba(20,184,166,0.8)] z-30"
-              style={{ top: `${100 - progress}%` }}
-              transition={{ duration: 0.1 }}
+          {/* Floating Particles - Contained */}
+          {Array.from({ length: 25 }).map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ 
+                opacity: [0, 0.4, 0], 
+                y: [0, -250],
+                x: [0, (i % 2 === 0 ? 60 : -60)],
+                scale: [0, 1, 0]
+              }}
+              transition={{ 
+                duration: 5 + Math.random() * 5, 
+                repeat: Infinity, 
+                delay: Math.random() * 5,
+                ease: "easeOut"
+              }}
+              className="absolute w-1 h-1 bg-teal-400 rounded-full"
+              style={{ 
+                left: `${Math.random() * 100}%`,
+                top: `${80 + Math.random() * 20}%`
+              }}
             />
-          </div>
+          ))}
+        </div>
+      </div>
 
-          {/* Minimalist Controls Section */}
-          <div className="flex flex-col items-center gap-6 w-[250px] md:w-[400px]">
-             {/* Percentage Counter */}
-             <div className="flex items-center gap-4">
-                <span className="h-[1px] w-12 bg-white/10" />
-                <span className="text-[1.5rem] md:text-[2rem] font-black text-white tabular-nums tracking-tighter">
-                  {Math.round(progress)}<span className="text-teal-500 text-lg ml-1">%</span>
-                </span>
-                <span className="h-[1px] w-12 bg-white/10" />
-             </div>
-
-             {/* Ultra Thin Progress Bar */}
-             <div className="w-full h-[1px] bg-white/5 relative overflow-hidden">
-                <motion.div 
-                  className="absolute left-0 top-0 h-full bg-teal-500"
-                  initial={{ width: "0%" }}
-                  animate={{ width: `${progress}%` }}
-                  transition={{ duration: 0.2 }}
-                />
-             </div>
-
-             {/* Status Message */}
-             <div className="flex flex-col items-center gap-2">
-                <span className="text-[9px] font-black text-teal-500/60 uppercase tracking-[0.5em]">
-                  {progress < 100 ? 'Accessing Core...' : 'Authorization Granted'}
-                </span>
-                <div className="flex gap-1">
-                   {[...Array(3)].map((_, i) => (
-                     <motion.div 
-                       key={i}
-                       animate={{ opacity: [0.2, 1, 0.2] }}
-                       transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-                       className="w-1 h-1 bg-teal-500 rounded-full"
-                     />
-                   ))}
-                </div>
-             </div>
+      {/* ─── Central Loader Content ─── */}
+      <div className="relative z-10 flex flex-col items-center">
+        
+        {/* Orbital Progress */}
+        <div className="relative w-56 h-56 flex items-center justify-center mb-16">
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-0 border-[0.5px] border-teal-500/20 rounded-full shadow-[0_0_30px_rgba(20,184,166,0.1)]"
+          />
+          <motion.div 
+            animate={{ rotate: -360 }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            className="absolute inset-4 border border-dashed border-teal-500/5 rounded-full"
+          />
+          
+          <div className="relative flex flex-col items-center">
+            <div className="flex items-baseline">
+              <motion.span 
+                key={Math.floor(progress)}
+                className="text-7xl font-black text-white tabular-nums tracking-tighter"
+              >
+                {Math.round(progress)}
+              </motion.span>
+              <span className="text-teal-500 text-2xl font-bold ml-1">%</span>
+            </div>
+            <motion.div 
+              animate={{ opacity: [0.3, 1, 0.3] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="text-[9px] font-black text-teal-400 uppercase tracking-[0.4em] mt-3"
+            >
+              Initializing Core
+            </motion.div>
           </div>
         </div>
 
-        <style jsx global>{`
-          .stroke-text {
-            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.4);
-          }
-          @media (max-width: 768px) {
-            .stroke-text {
-              -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.3);
-            }
-          }
-        `}</style>
-      </motion.div>
-    </AnimatePresence>
+        {/* Branding */}
+        <div className="text-center space-y-6">
+          <h2 className="text-[clamp(2rem,5vw,3rem)] font-black text-white tracking-[0.1em] uppercase">
+            {projectName || 'Dipanshu'}<span className="text-teal-500 animate-pulse">_</span>
+          </h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.5 }}
+            className="text-[11px] text-white font-bold uppercase tracking-[1em]"
+          >
+            Developing Excellence
+          </motion.p>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mt-20 w-80">
+          <div className="relative h-[2px] w-full bg-white/5 rounded-full overflow-hidden">
+            <motion.div
+              className="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-700 via-teal-400 to-teal-700"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Vignette Overlay for focus */}
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(1,4,10,0.9)_100%)]" />
+    </motion.div>
   );
-}
+};
