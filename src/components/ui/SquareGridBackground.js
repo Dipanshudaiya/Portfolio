@@ -12,15 +12,31 @@ export default function SquareGridBackground() {
     const ctx = canvas.getContext('2d', { alpha: true });
     let animationFrameId;
 
-    const cellSize = 60; 
-    const gap = 6; 
-    const boxSize = cellSize - gap;
+    let cellSize = 60; 
+    let gap = 6; 
+    let boxSize = cellSize - gap;
+    let isDrawing = false;
 
     const resize = () => {
-      // Limit width to 1600px to ensure it shrinks on zoom out
       const maxWidth = 1600;
       canvas.width = Math.min(window.innerWidth, maxWidth);
       canvas.height = window.innerHeight;
+      
+      // Auto-adjust grid size based on screen
+      if (window.innerWidth < 640) {
+        cellSize = 35;
+        gap = 4;
+      } else if (window.innerWidth < 1024) {
+        cellSize = 45;
+        gap = 5;
+      } else {
+        cellSize = 60;
+        gap = 6;
+      }
+      boxSize = cellSize - gap;
+      
+      // Trigger a redraw on resize
+      if (!isDrawing) drawGrid();
     };
 
     const drawGrid = () => {
@@ -49,7 +65,8 @@ export default function SquareGridBackground() {
       const hoverX = Math.floor(relativeX / cellSize);
       const hoverY = Math.floor(relativeY / cellSize);
       
-      if (hoverX >= 0 && hoverX < cols && hoverY >= 0 && hoverY < rows) {
+      // Only add to map if mouse is actually inside canvas bounds
+      if (relativeX >= 0 && relativeY >= 0 && hoverX >= 0 && hoverX < cols && hoverY >= 0 && hoverY < rows) {
         gridCells.current.set(`${hoverX}-${hoverY}`, 1.0);
       }
 
@@ -76,11 +93,24 @@ export default function SquareGridBackground() {
         }
       });
 
-      animationFrameId = requestAnimationFrame(drawGrid);
+      // 4. Optimize loop: Only continue if there are cells to animate
+      if (gridCells.current.size > 0) {
+        isDrawing = true;
+        animationFrameId = requestAnimationFrame(drawGrid);
+      } else {
+        isDrawing = false;
+        // Mouse is outside, reset mouse pos so it doesn't trigger again
+        mousePos.current = { x: -2000, y: -2000 };
+      }
     };
 
     const handleMouseMove = (e) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
+      // If loop is stopped, start it again
+      if (!isDrawing) {
+        isDrawing = true;
+        drawGrid();
+      }
     };
 
     window.addEventListener('resize', resize);

@@ -136,7 +136,7 @@ export const projectsData = [
       { name: 'Compare PDFs', icon: '⚖️', color: '#3B82F6' },
       { name: 'Quiz Gen', icon: '📝', color: '#10B981' }
     ],
-    liveLink: 'https://ai-pdf-intellect-1xlw.vercel.app/',
+    liveLink: 'https://ai-pdf-intellect.vercel.app',
     githubLink: 'https://github.com/Dipanshudaiya/Ai-pdf-Intellect',
     purpose: 'To make consuming, analyzing, and studying long PDF documents effortless and highly interactive using AI.',
     problem: 'Reading lengthy PDFs is time-consuming, and extracting specific information or comparing multiple documents manually is tedious and inefficient.',
