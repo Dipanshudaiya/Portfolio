@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import LogoLoop from '../ui/LogoLoop';
 
 const SKILLS_TOP = [
@@ -21,8 +22,17 @@ const SKILLS_BOTTOM = [
 ];
 
 export default function Skills() {
+  const [isMobile, setIsMobile] = useState(false);
+  
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <section id="skills" className="w-full py-[100px] bg-transparent">
+    <section id="skills" className="w-full py-[60px] md:py-[100px] bg-transparent">
       <div className="container">
         {/* Section Header */}
         <div className="flex flex-col items-center mb-16 text-center">
@@ -42,21 +52,55 @@ export default function Skills() {
           </h2>
         </div>
 
-        {/* Single Line Big Logo Loop */}
-        <div className="max-w-[1280px] mx-auto overflow-hidden py-4">
+        {/* Desktop View: Single Line */}
+        <div className="hidden md:block max-w-[1280px] mx-auto overflow-hidden py-4">
           <LogoLoop 
             direction="left" 
             logos={[...SKILLS_TOP, ...SKILLS_BOTTOM]} 
             speed={40} 
-            logoHeight={80} // Increased size significantly
+            logoHeight={80} 
             gap={40}
             renderItem={(item) => (
-              <div className="relative h-[80px] w-[80px] group/logo rounded-2xl overflow-hidden p-[2px]">
+              <div className="relative h-full w-[var(--logoloop-logoHeight)] group/logo rounded-2xl overflow-hidden p-[2px]">
                 {/* Spinning border layer */}
-                <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_70%,rgba(20,184,166,0.8)_100%)] animate-[spin_2s_linear_infinite] opacity-0 group-hover/logo:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_70%,rgba(20,184,166,0.8)_100%)] animate-[spin_4s_linear_infinite] opacity-100 transition-opacity duration-300" />
                 
                 {/* Content inner box */}
-                <div className="relative z-10 w-full h-full flex items-center justify-center bg-white dark:bg-[#0a0a0a] border border-gray-200 group-hover/logo:border-transparent dark:border-transparent rounded-[calc(1rem-2px)] p-4 shadow-lg group-hover/logo:bg-teal-500/5 transition-all duration-300">
+                <div className="relative z-10 w-full h-full flex items-center justify-center bg-white dark:bg-[#0a0a0a] border border-transparent rounded-[calc(1rem-2px)] p-4 shadow-lg group-hover/logo:bg-teal-500/5 transition-all duration-300">
+                  <img src={item.src} alt={item.alt} className="w-full h-full object-contain" />
+                </div>
+              </div>
+            )}
+          />
+        </div>
+
+        {/* Mobile View: Two Lines, Larger Icons */}
+        <div className="flex md:hidden flex-col gap-6 max-w-[1280px] mx-auto overflow-hidden py-4">
+          <LogoLoop 
+            direction="left" 
+            logos={SKILLS_TOP} 
+            speed={30} 
+            logoHeight={65} 
+            gap={24}
+            renderItem={(item) => (
+              <div className="relative h-full w-[var(--logoloop-logoHeight)] group/logo rounded-2xl overflow-hidden p-[2px]">
+                <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_70%,rgba(20,184,166,0.8)_100%)] animate-[spin_4s_linear_infinite] opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10 w-full h-full flex items-center justify-center bg-white dark:bg-[#0a0a0a] border border-transparent rounded-[calc(1rem-2px)] p-3 shadow-lg transition-all duration-300">
+                  <img src={item.src} alt={item.alt} className="w-full h-full object-contain" />
+                </div>
+              </div>
+            )}
+          />
+          <LogoLoop 
+            direction="right" 
+            logos={SKILLS_BOTTOM} 
+            speed={30} 
+            logoHeight={65} 
+            gap={24}
+            renderItem={(item) => (
+              <div className="relative h-full w-[var(--logoloop-logoHeight)] group/logo rounded-2xl overflow-hidden p-[2px]">
+                <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_70%,rgba(20,184,166,0.8)_100%)] animate-[spin_4s_linear_infinite] opacity-100 transition-opacity duration-300" />
+                <div className="relative z-10 w-full h-full flex items-center justify-center bg-white dark:bg-[#0a0a0a] border border-transparent rounded-[calc(1rem-2px)] p-3 shadow-lg transition-all duration-300">
                   <img src={item.src} alt={item.alt} className="w-full h-full object-contain" />
                 </div>
               </div>

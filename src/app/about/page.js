@@ -3,7 +3,6 @@ import { useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 function SpotlightCard({ children, className = '' }) {
@@ -91,6 +90,7 @@ export default function AboutPage() {
           --text-secondary: #4b5563;
           --hover-lift: -5px;
           --theme-accent: #4f46e5;
+          --accent-primary: #4f46e5;
         }
         [data-theme='dark'] .about-main {
           --glass-bg: #0a0a0a;
@@ -100,6 +100,7 @@ export default function AboutPage() {
           --text-primary: #ededed;
           --text-secondary: #999;
           --theme-accent: #8B5CF6;
+          --accent-primary: #8B5CF6;
         }
         .hover-card {
           transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -267,14 +268,14 @@ export default function AboutPage() {
                       <span className="text-accent-primary">🏆</span> Certifications
                     </h2>
                     <div className="flex flex-col gap-4">
-                      <div className="p-5 bg-stats border border-glass-border rounded-2xl hover:border-[rgba(139,92,246,0.4)] transition-colors group sub-card">
+                      <div className="p-5 bg-stats border border-[color:var(--theme-accent)] rounded-2xl transition-colors group sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <div className="flex justify-between items-start mb-2">
                           <h4 className="font-bold text-primary group-hover:text-accent-primary transition-colors">Advanced Web Development</h4>
                           <span className="text-xs bg-[rgba(139,92,246,0.1)] text-[#8B5CF6] px-2 py-1 rounded">2024</span>
                         </div>
                         <p className="text-sm text-secondary">Frontend Masters</p>
                       </div>
-                      <div className="p-5 bg-stats border border-glass-border rounded-2xl hover:border-[rgba(139,92,246,0.4)] transition-colors group sub-card">
+                      <div className="p-5 bg-stats border border-[color:var(--theme-accent)] rounded-2xl transition-colors group sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <div className="flex justify-between items-start mb-2">
                           <h4 className="font-bold text-primary group-hover:text-accent-primary transition-colors">React Native Masterclass</h4>
                           <span className="text-xs bg-[rgba(139,92,246,0.1)] text-[#8B5CF6] px-2 py-1 rounded">2023</span>
@@ -293,19 +294,19 @@ export default function AboutPage() {
                       I believe a creative mind needs inspiration from the real world. Here is what I enjoy doing when I'm away from the keyboard.
                     </p>
                     <div className="grid grid-cols-2 gap-3">
-                      <div className="p-4 bg-stats border border-glass-border rounded-xl text-center flex flex-col items-center justify-center gap-2 transition-colors sub-card">
+                      <div className="p-4 bg-stats border border-[color:var(--theme-accent)] rounded-xl text-center flex flex-col items-center justify-center gap-2 transition-colors sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <span className="text-2xl">🎵</span>
                         <span className="text-[0.65rem] font-bold text-primary uppercase tracking-widest">Music</span>
                       </div>
-                      <div className="p-4 bg-stats border border-glass-border rounded-xl text-center flex flex-col items-center justify-center gap-2 transition-colors sub-card">
+                      <div className="p-4 bg-stats border border-[color:var(--theme-accent)] rounded-xl text-center flex flex-col items-center justify-center gap-2 transition-colors sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <span className="text-2xl">📚</span>
                         <span className="text-[0.65rem] font-bold text-primary uppercase tracking-widest">Reading</span>
                       </div>
-                      <div className="p-4 bg-stats border border-glass-border rounded-xl text-center flex flex-col items-center justify-center gap-2 transition-colors sub-card">
+                      <div className="p-4 bg-stats border border-[color:var(--theme-accent)] rounded-xl text-center flex flex-col items-center justify-center gap-2 transition-colors sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <span className="text-2xl">☕</span>
                         <span className="text-[0.65rem] font-bold text-primary uppercase tracking-widest">Coffee</span>
                       </div>
-                      <div className="p-4 bg-stats border border-glass-border rounded-xl text-center flex flex-col items-center justify-center gap-2 transition-colors sub-card">
+                      <div className="p-4 bg-stats border border-[color:var(--theme-accent)] rounded-xl text-center flex flex-col items-center justify-center gap-2 transition-colors sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <span className="text-2xl">✈️</span>
                         <span className="text-[0.65rem] font-bold text-primary uppercase tracking-widest">Travel</span>
                       </div>
@@ -317,7 +318,6 @@ export default function AboutPage() {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

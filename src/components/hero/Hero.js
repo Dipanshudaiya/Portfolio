@@ -33,7 +33,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="home" className="relative w-full flex items-center justify-center pt-[80px] md:pt-[100px] pb-[60px] md:pb-[80px] overflow-hidden bg-transparent min-h-[600px] lg:h-[90vh] lg:max-h-[900px]">
+    <section id="home" className="relative w-full flex items-center justify-center pt-[120px] md:pt-[160px] pb-[60px] md:pb-[80px] bg-transparent min-h-[600px] lg:h-[90vh] lg:max-h-[800px]">
       
       {/* ─── Strictly Contained Background (Shrinks on Zoom Out) ─── */}
       <div className="absolute inset-0 z-0 pointer-events-none flex justify-center overflow-hidden">
@@ -78,15 +78,15 @@ export default function Hero() {
               I build high-performance, scalable web applications with the <span className="text-gray-900 dark:text-white font-bold">MERN Stack</span> & Modern UI/UX principles.
             </p>
 
-            {/* Buttons - Side by Side on Mobile */}
-            <div className="flex flex-row flex-wrap justify-center lg:justify-start gap-3 md:gap-4 mb-8 md:mb-12">
-              <a href="#projects" className="group relative px-6 py-4 md:px-12 md:py-6 bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-2xl font-black text-[11px] md:text-[13px] uppercase tracking-[0.1em] md:tracking-[0.2em] overflow-hidden transition-all duration-200 hover:shadow-[0_20px_40px_rgba(13,148,136,0.35)] hover:-translate-y-1 active:scale-95 shadow-[0_10px_20px_rgba(13,148,136,0.2)] flex-1 sm:flex-none min-w-[140px] flex items-center justify-center">
+            {/* Buttons - Adaptive on Mobile */}
+            <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-3 md:gap-4 mb-8 md:mb-12 w-full px-4 sm:px-0">
+              <motion.a href="#projects" whileHover={{ y: -4 }} whileTap={{ scale: 0.95 }} className="group relative px-6 py-4 md:px-12 md:py-6 bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-2xl font-black text-[11px] md:text-[13px] uppercase tracking-[0.1em] md:tracking-[0.2em] overflow-hidden transition-all duration-200 hover:shadow-[0_20px_40px_rgba(13,148,136,0.35)] shadow-[0_10px_20px_rgba(13,148,136,0.2)] w-full sm:w-auto flex items-center justify-center">
                 <span className="relative z-10 flex items-center gap-2 md:gap-3">Projects <span className="text-lg group-hover:translate-x-1 transition-transform">→</span></span>
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-teal-600 opacity-0 group-hover:opacity-100 transition-all duration-200" />
-              </a>
-              <a href="/resume.pdf" download className="px-6 py-4 md:px-12 md:py-6 bg-[#1e293b] dark:bg-white text-white dark:text-[#0f172a] rounded-2xl font-black text-[11px] md:text-[13px] uppercase tracking-[0.1em] md:tracking-[0.2em] transition-all duration-200 hover:bg-[#0f172a] dark:hover:bg-gray-100 hover:-translate-y-1 active:scale-95 shadow-[0_10px_20px_rgba(0,0,0,0.1)] flex-1 sm:flex-none min-w-[140px] flex items-center justify-center">
+              </motion.a>
+              <motion.a href="/resume.pdf" download whileHover={{ y: -4 }} whileTap={{ scale: 0.95 }} className="px-6 py-4 md:px-12 md:py-6 bg-[#1e293b] dark:bg-white text-white dark:text-[#0f172a] rounded-2xl font-black text-[11px] md:text-[13px] uppercase tracking-[0.1em] md:tracking-[0.2em] transition-all duration-200 hover:bg-[#0f172a] dark:hover:bg-gray-100 shadow-[0_10px_20px_rgba(0,0,0,0.1)] w-full sm:w-auto flex items-center justify-center">
                 Resume <svg className="w-4 h-4 md:w-5 md:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-              </a>
+              </motion.a>
             </div>
 
             {/* Social Icons - Optimized for Mobile */}
@@ -104,9 +104,9 @@ export default function Hero() {
             <div className="relative w-[clamp(260px,35vw,460px)] h-[clamp(260px,35vw,460px)] flex justify-center items-center overflow-visible">
               
               <div className="absolute inset-0 flex justify-center items-center pointer-events-none overflow-visible">
-                <div className="absolute w-[180%] h-[180%] border border-teal-500/10 rounded-full animate-[rotate_45s_linear_infinite_reverse] opacity-50" />
-                <div className="absolute w-[150%] h-[150%] border border-teal-500/20 rounded-full animate-rotate opacity-70" />
-                <div className="absolute w-[125%] h-[125%] border-2 border-dashed border-teal-500/30 rounded-full animate-[rotate_18s_linear_infinite]" />
+                <div className="absolute w-[150%] h-[150%] border border-teal-500/10 rounded-full animate-[rotate_45s_linear_infinite_reverse] opacity-50" />
+                <div className="absolute w-[130%] h-[130%] border border-teal-500/20 rounded-full animate-rotate opacity-70" />
+                <div className="absolute w-[115%] h-[115%] border-2 border-dashed border-teal-500/30 rounded-full animate-[rotate_18s_linear_infinite]" />
               </div>
 
               {/* Image Frame */}

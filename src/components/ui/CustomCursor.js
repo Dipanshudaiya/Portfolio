@@ -51,7 +51,7 @@ export default function CustomCursor() {
     <>
       {/* Outer Ring - Follows with organic lag */}
       <motion.div
-        className="fixed top-0 left-0 rounded-full pointer-events-none z-[9999] border-2 border-indigo-600/30 dark:border-white/20"
+        className="hidden md:block fixed top-0 left-0 rounded-full pointer-events-none z-[9999] border-2 border-indigo-600/30 dark:border-white/20"
         style={{
           x: outerX,
           y: outerY,
@@ -68,7 +68,7 @@ export default function CustomCursor() {
 
       {/* Main Dot - Precise and Fast */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-indigo-600 dark:bg-white rounded-full pointer-events-none z-[10000] shadow-[0_0_10px_rgba(79,70,229,0.5)]"
+        className="hidden md:block fixed top-0 left-0 w-2 h-2 bg-indigo-600 dark:bg-white rounded-full pointer-events-none z-[10000] shadow-[0_0_10px_rgba(79,70,229,0.5)]"
         style={{
           x: mouseX,
           y: mouseY,
@@ -85,7 +85,7 @@ export default function CustomCursor() {
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="fixed pointer-events-none z-[10001] px-3 py-1 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full"
+          className="hidden md:block fixed pointer-events-none z-[10001] px-3 py-1 bg-indigo-600 text-white text-[10px] font-black uppercase tracking-widest rounded-full"
           style={{
             x: mouseX,
             y: mouseY,

@@ -8,7 +8,7 @@ export const PageLoader = ({ isVisible, onComplete, projectName }) => {
   useEffect(() => {
     if (isVisible) {
       setProgress(0);
-      const duration = 2000; 
+      const duration = 800; // Fast loading
       const interval = 16;
       const step = 100 / (duration / interval);
 
@@ -16,7 +16,7 @@ export const PageLoader = ({ isVisible, onComplete, projectName }) => {
         setProgress((prev) => {
           if (prev >= 100) {
             clearInterval(timer);
-            setTimeout(onComplete, 600);
+            setTimeout(onComplete, 200);
             return 100;
           }
           return prev + step;
@@ -29,141 +29,82 @@ export const PageLoader = ({ isVisible, onComplete, projectName }) => {
 
   if (!isVisible) return null;
 
+  const displayText = projectName || 'DIPANSHU';
+
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 1, ease: [0.43, 0.13, 0.23, 0.96] } }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#01040a] overflow-hidden"
+      initial={{ y: 0 }}
+      exit={{ y: '-100%', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
+      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#050505] overflow-hidden"
     >
-      {/* ─── Strictly Contained Background (Shrinks on Zoom Out) ─── */}
-      <div className="absolute inset-0 z-0 pointer-events-none flex justify-center overflow-hidden">
-        <div className="relative w-full max-w-[1600px] h-full overflow-hidden">
-          
-          {/* Intense Animated Mesh Gradients (Auroras) - Contained */}
-          <motion.div 
-            animate={{ 
-              scale: [1, 1.3, 1],
-              x: ['-10%', '10%', '-10%'],
-              y: ['-5%', '5%', '-5%'],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-[10%] -left-[10%] w-[70%] h-[70%] bg-teal-600/15 blur-[120px] rounded-full mix-blend-screen"
-          />
-          <motion.div 
-            animate={{ 
-              scale: [1.1, 1, 1.1],
-              x: ['10%', '-10%', '10%'],
-              y: ['5%', '-5%', '5%'],
-            }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-            className="absolute -bottom-[10%] -right-[10%] w-[80%] h-[80%] bg-teal-500/10 blur-[110px] rounded-full mix-blend-screen"
-          />
+      {/* ─── Premium Texture & Lighting ─── */}
+      <div 
+        className="absolute inset-0 pointer-events-none opacity-[0.03]"
+        style={{ 
+          backgroundImage: `
+            linear-gradient(to right, #ffffff 1px, transparent 1px),
+            linear-gradient(to bottom, #ffffff 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px'
+        }} 
+      />
+      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,#050505_100%)]" />
 
-          {/* Grid Sync - Contained */}
-          <motion.div 
-            animate={{ opacity: [0.03, 0.08, 0.03] }}
-            transition={{ duration: 4, repeat: Infinity }}
-            className="absolute inset-0" 
-            style={{ 
-              backgroundImage: `
-                linear-gradient(to right, rgba(20, 184, 166, 0.3) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(20, 184, 166, 0.3) 1px, transparent 1px)
-              `,
-              backgroundSize: '50px 50px'
-            }} 
-          />
-
-          {/* Floating Particles - Contained */}
-          {Array.from({ length: 25 }).map((_, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ 
-                opacity: [0, 0.4, 0], 
-                y: [0, -250],
-                x: [0, (i % 2 === 0 ? 60 : -60)],
-                scale: [0, 1, 0]
-              }}
-              transition={{ 
-                duration: 5 + Math.random() * 5, 
-                repeat: Infinity, 
-                delay: Math.random() * 5,
-                ease: "easeOut"
-              }}
-              className="absolute w-1 h-1 bg-teal-400 rounded-full"
-              style={{ 
-                left: `${Math.random() * 100}%`,
-                top: `${80 + Math.random() * 20}%`
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* ─── Central Loader Content ─── */}
+      {/* ─── Central Typography Fill ─── */}
       <div className="relative z-10 flex flex-col items-center">
         
-        {/* Orbital Progress */}
-        <div className="relative w-56 h-56 flex items-center justify-center mb-16">
-          <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-0 border-[0.5px] border-teal-500/20 rounded-full shadow-[0_0_30px_rgba(20,184,166,0.1)]"
-          />
-          <motion.div 
-            animate={{ rotate: -360 }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-            className="absolute inset-4 border border-dashed border-teal-500/5 rounded-full"
-          />
-          
-          <div className="relative flex flex-col items-center">
-            <div className="flex items-baseline">
-              <motion.span 
-                key={Math.floor(progress)}
-                className="text-7xl font-black text-white tabular-nums tracking-tighter"
-              >
-                {Math.round(progress)}
-              </motion.span>
-              <span className="text-teal-500 text-2xl font-bold ml-1">%</span>
-            </div>
-            <motion.div 
-              animate={{ opacity: [0.3, 1, 0.3] }}
-              transition={{ duration: 2, repeat: Infinity }}
-              className="text-[9px] font-black text-teal-400 uppercase tracking-[0.4em] mt-3"
-            >
-              Initializing Core
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Branding */}
-        <div className="text-center space-y-6">
-          <h2 className="text-[clamp(2rem,5vw,3rem)] font-black text-white tracking-[0.1em] uppercase">
-            {projectName || 'Dipanshu'}<span className="text-teal-500 animate-pulse">_</span>
-          </h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
-            className="text-[11px] text-white font-bold uppercase tracking-[1em]"
+        {/* Main Name with Bottom-to-Top Fill */}
+        <div className="relative text-[clamp(3.5rem,10vw,10rem)] font-black uppercase tracking-tighter leading-none whitespace-nowrap px-4">
+          {/* Layer 1: Outlined Text */}
+          <span 
+            className="text-transparent" 
+            style={{ WebkitTextStroke: '2px rgba(255,255,255,0.1)' }}
           >
-            Developing Excellence
-          </motion.p>
+            DIPANSHU
+          </span>
+          
+          {/* Layer 2: Solid Filled Text (Revealed from Bottom to Top) */}
+          <motion.span 
+            className="absolute top-0 left-4 text-teal-400 drop-shadow-[0_0_20px_rgba(45,212,191,0.5)]"
+            style={{ 
+              clipPath: `inset(${100 - progress}% 0 0 0)`,
+            }}
+          >
+            DIPANSHU
+          </motion.span>
         </div>
 
-        {/* Progress Bar */}
-        <div className="mt-20 w-80">
-          <div className="relative h-[2px] w-full bg-white/5 rounded-full overflow-hidden">
-            <motion.div
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-teal-700 via-teal-400 to-teal-700"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+        {/* Destination Page Name */}
+        <div className="mt-4 md:mt-8 text-center">
+          <p className="text-sm md:text-xl font-black text-white uppercase tracking-[0.5em] md:tracking-[0.8em]">
+            {projectName || 'PORTFOLIO'}
+          </p>
+        </div>
+
+        {/* Status Indicator */}
+        <div className="mt-6 flex items-center gap-4">
+          <div className="w-2 h-2 rounded-full bg-teal-500 animate-pulse shadow-[0_0_10px_rgba(20,184,166,0.8)]" />
+          <p className="text-xs md:text-sm font-black text-gray-500 uppercase tracking-[0.5em]">
+            {progress < 100 ? 'Initializing Experience' : 'Ready'}
+          </p>
+        </div>
+
+        {/* Massive Background Counter */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 opacity-[0.02] pointer-events-none">
+          <span className="text-[20rem] md:text-[30rem] font-black tabular-nums tracking-tighter text-white leading-none">
+            {Math.round(progress)}
+          </span>
         </div>
       </div>
 
-      {/* Vignette Overlay for focus */}
-      <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(1,4,10,0.9)_100%)]" />
+      {/* ─── Minimalist Bottom Progress Line ─── */}
+      <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white/5">
+        <motion.div 
+          className="h-full bg-teal-500 shadow-[0_0_15px_rgba(20,184,166,0.5)]" 
+          style={{ width: `${progress}%` }} 
+          transition={{ ease: "linear", duration: 0.1 }}
+        />
+      </div>
     </motion.div>
   );
 };

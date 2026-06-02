@@ -107,29 +107,35 @@ export default function About() {
             </div>
 
             {/* Highlights Bento */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
               {HIGHLIGHTS.map((h, i) => (
                 <motion.div 
                    key={i}
                   whileHover={{ y: -5, scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
-                  className="glass-card relative overflow-hidden p-8 rounded-[2rem] flex flex-col items-center text-center gap-3 transition-all duration-300 hover:bg-blue-50 dark:!bg-[#0a0a0a] cursor-pointer after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_top,_rgba(79,70,229,0.25),_transparent_60%)] after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-500 after:pointer-events-none"
+                  className={`group relative overflow-hidden p-[2px] rounded-[1.5rem] md:rounded-[2rem] cursor-pointer shadow-[0_10px_30px_rgba(0,0,0,0.1)] hover:shadow-[0_20px_50px_rgba(13,148,136,0.2)] transition-all duration-300 ${i === 2 ? 'col-span-2 md:col-span-1' : ''}`}
                 >
-                  <span className="text-3xl mb-1 relative z-10">{h.icon}</span>
-                  <p className="text-[12px] font-black text-gray-900 dark:text-white uppercase tracking-widest leading-tight relative z-10">{h.text}</p>
-                  <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest opacity-60 relative z-10">{h.sub}</span>
+                  {/* Spinning border layer */}
+                  <div className="absolute inset-0 bg-[conic-gradient(from_0deg,transparent_70%,rgba(13,148,136,0.8)_100%)] animate-[spin_4s_linear_infinite] opacity-100 transition-opacity duration-200" />
+                  
+                  {/* Inner Card Background & Content */}
+                  <div className="relative z-10 w-full h-full p-5 md:p-8 bg-white dark:!bg-[#0a0a0a] rounded-[calc(1.5rem-1px)] md:rounded-[calc(2rem-1px)] flex flex-col items-center text-center gap-2 md:gap-3 border border-transparent transition-colors duration-200 after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_top,_rgba(79,70,229,0.25),_transparent_60%)] after:opacity-0 hover:after:opacity-100 after:transition-opacity after:duration-500 after:pointer-events-none">
+                    <span className="text-2xl md:text-3xl mb-1 relative z-10">{h.icon}</span>
+                    <p className="text-[10px] md:text-[12px] font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] md:tracking-widest leading-tight relative z-10">{h.text}</p>
+                    <span className="text-[8px] md:text-[10px] font-black text-gray-400 uppercase tracking-widest opacity-60 relative z-10">{h.sub}</span>
+                  </div>
                 </motion.div>
               ))}
             </div>
 
             {/* Action Button */}
-            <div className="pt-6">
+            <div className="pt-4 md:pt-6 flex justify-center md:justify-start">
               <button
                 onClick={handleAboutClick}
-                className="group relative px-14 py-6 bg-gradient-to-br from-teal-600 to-teal-700 text-white font-black text-[13px] uppercase tracking-[0.3em] rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_rgba(13,148,136,0.35)] hover:-translate-y-1 active:scale-95 shadow-[0_10px_20px_rgba(13,148,136,0.2)]"
+                className="group relative w-full md:w-auto px-8 md:px-14 py-5 md:py-6 bg-gradient-to-br from-teal-600 to-teal-700 text-white font-black text-[11px] md:text-[13px] uppercase tracking-[0.2em] md:tracking-[0.3em] rounded-[1.2rem] md:rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_rgba(13,148,136,0.35)] hover:-translate-y-1 active:scale-95 shadow-[0_10px_20px_rgba(13,148,136,0.2)] flex justify-center items-center"
               >
-                <span className="relative z-10 flex items-center gap-4">
-                  Know More About Me <span className="text-2xl group-hover:translate-x-2 transition-transform duration-500">↗</span>
+                <span className="relative z-10 flex items-center gap-3 md:gap-4">
+                  Know More About Me <span className="text-xl md:text-2xl group-hover:translate-x-2 transition-transform duration-500">↗</span>
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-teal-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </button>

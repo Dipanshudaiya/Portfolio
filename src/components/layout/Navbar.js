@@ -95,7 +95,7 @@ export default function Navbar() {
         initial={false}
         animate={{
           width: scrolled ? 'min(90%, 1100px)' : 'min(100%, 1600px)',
-          padding: scrolled ? '8px 24px' : '24px 60px',
+          padding: scrolled ? '8px 24px' : '12px 60px',
           borderRadius: scrolled ? '100px' : '0px',
           y: scrolled ? 15 : 0,
         }}
@@ -107,8 +107,8 @@ export default function Navbar() {
         }}
         className={`pointer-events-auto flex items-center justify-between relative transition-all duration-500
           ${scrolled 
-            ? 'bg-white/90 dark:bg-[#0a0a0a]/90 backdrop-blur-xl border border-gray-200/50 dark:border-teal-500/20 shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)]' 
-            : 'bg-white/95 dark:bg-[#030303]/95 border-b border-gray-100 dark:border-white/5 shadow-sm'
+            ? 'bg-white dark:bg-[#0a0a0a] border border-gray-200/50 dark:border-teal-500/20 shadow-[0_10px_30px_rgba(0,0,0,0.08)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)]' 
+            : 'bg-white dark:bg-[#030303] border-b border-gray-100 dark:border-white/5 shadow-sm'
           }`}
       >
         {/* Animated Glow Overlay (Only when scrolled) */}
@@ -210,7 +210,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="absolute top-28 left-6 right-6 bg-white/95 dark:bg-black/95 backdrop-blur-3xl rounded-[3rem] p-10 border border-white/20 dark:border-white/10 shadow-2xl lg:hidden flex flex-col gap-6 pointer-events-auto"
+            className="absolute top-24 md:top-28 left-4 right-4 md:left-6 md:right-6 bg-white/95 dark:bg-black/95 backdrop-blur-3xl rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 border border-white/20 dark:border-white/10 shadow-2xl lg:hidden flex flex-col gap-4 md:gap-6 pointer-events-auto"
           >
             {NAV_LINKS.map((link) => (
               <a 

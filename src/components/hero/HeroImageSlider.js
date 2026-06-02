@@ -32,6 +32,7 @@ export default function HeroImageSlider({ images: rawImages, alt }) {
           src={imgSrc}
           alt={`${alt} - View ${i + 1}`}
           className={`${styles.heroSlideImage} ${i === currentIndex ? styles.heroSlideActive : styles.heroSlideOut}`}
+          decoding="async"
         />
       ))}
 

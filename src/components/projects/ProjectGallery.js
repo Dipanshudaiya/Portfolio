@@ -58,17 +58,17 @@ export default function ProjectGallery({ gallery }) {
         <div className={styles.galleryInner}>
           {currentGallery.length > 1 && (
             <div className={styles.galleryImageWrapper} onClick={prevSlide} style={{ cursor: 'pointer' }}>
-              <img src={currentGallery[getIndex(currentIndex - 1)]} alt="Previous Screenshot" className={styles.galleryImage} />
+              <img src={currentGallery[getIndex(currentIndex - 1)]} alt="Previous Screenshot" className={styles.galleryImage} loading="lazy" decoding="async" />
             </div>
           )}
 
           <div className={`${styles.galleryImageWrapper} ${styles.galleryImageActive}`}>
-            <img src={currentGallery[currentIndex]} alt="Current Screenshot" className={styles.galleryImage} />
+            <img src={currentGallery[currentIndex]} alt="Current Screenshot" className={styles.galleryImage} decoding="async" />
           </div>
 
           {currentGallery.length > 2 && (
             <div className={styles.galleryImageWrapper} onClick={nextSlide} style={{ cursor: 'pointer' }}>
-              <img src={currentGallery[getIndex(currentIndex + 1)]} alt="Next Screenshot" className={styles.galleryImage} />
+              <img src={currentGallery[getIndex(currentIndex + 1)]} alt="Next Screenshot" className={styles.galleryImage} loading="lazy" decoding="async" />
             </div>
           )}
         </div>
