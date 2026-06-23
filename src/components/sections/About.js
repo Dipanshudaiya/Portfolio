@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { PageLoader } from '../ui/PageLoader';
-
 export default function About() {
   const router = useRouter();
   const [isRedirecting, setIsRedirecting] = useState(false);

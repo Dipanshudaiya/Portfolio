@@ -235,14 +235,14 @@ export default function AboutPage() {
                  </h2>
                  <div className="relative pl-6 border-l-2 border-[rgba(139,92,246,0.2)] flex flex-col gap-10">
                    
-                   {/* MCA */}
+                   {/* 12th */}
                    <div className="relative group">
                      <span className="absolute -left-[35px] top-1 w-4 h-4 rounded-full bg-background border-2 border-accent-primary shadow-[0_0_10px_rgba(139,92,246,0.5)] group-hover:scale-125 transition-transform duration-300"></span>
-                     <h3 className="text-xl font-bold text-primary">Master of Computer Applications (MCA)</h3>
-                     <p className="text-secondary text-sm mb-3 mt-1">JNVU University • 2022 - 2024</p>
+                     <h3 className="text-xl font-bold text-primary">12th </h3>
+                     <p className="text-secondary text-sm mb-3 mt-1">Sbvm • 2023</p>
                      <div className="bg-stats border border-glass-border p-4 rounded-xl inline-block transition-colors group-hover:border-[rgba(139,92,246,0.3)] sub-card">
                         <p className="text-[var(--text-primary)] font-medium text-sm">Academic Performance</p>
-                        <p className="text-2xl font-black gradient-text">85% (A+ Grade)</p>
+                        <p className="text-2xl font-black gradient-text">79.20% </p>
                      </div>
                    </div>
 
@@ -250,10 +250,10 @@ export default function AboutPage() {
                    <div className="relative group">
                      <span className="absolute -left-[35px] top-1 w-4 h-4 rounded-full bg-background border-2 border-[rgba(139,92,246,0.5)] group-hover:scale-125 group-hover:border-accent-primary transition-all duration-300"></span>
                      <h3 className="text-xl font-bold text-primary">Bachelor of Computer Applications (BCA)</h3>
-                     <p className="text-secondary text-sm mb-3 mt-1">JNVU University • 2019 - 2022</p>
+                     <p className="text-secondary text-sm mb-3 mt-1">MGSU • 2023 - Current</p>
                      <div className="bg-stats border border-glass-border p-4 rounded-xl inline-block transition-colors group-hover:border-[rgba(139,92,246,0.3)] sub-card">
                         <p className="text-[var(--text-primary)] font-medium text-sm">Academic Performance</p>
-                        <p className="text-2xl font-black text-[#8B5CF6]">80%</p>
+                        <p className="text-2xl font-black text-[#8B5CF6]">7.90 CGPA</p>
                      </div>
                    </div>
 
@@ -270,17 +270,17 @@ export default function AboutPage() {
                     <div className="flex flex-col gap-4">
                       <div className="p-5 bg-stats border border-[color:var(--theme-accent)] rounded-2xl transition-colors group sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-bold text-primary group-hover:text-accent-primary transition-colors">Advanced Web Development</h4>
+                          <h4 className="font-bold text-primary group-hover:text-accent-primary transition-colors">Advanced Java Programming</h4>
                           <span className="text-xs bg-[rgba(139,92,246,0.1)] text-[#8B5CF6] px-2 py-1 rounded">2024</span>
                         </div>
-                        <p className="text-sm text-secondary">Frontend Masters</p>
+                        <p className="text-sm text-secondary">Coursera</p>
                       </div>
                       <div className="p-5 bg-stats border border-[color:var(--theme-accent)] rounded-2xl transition-colors group sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-bold text-primary group-hover:text-accent-primary transition-colors">React Native Masterclass</h4>
-                          <span className="text-xs bg-[rgba(139,92,246,0.1)] text-[#8B5CF6] px-2 py-1 rounded">2023</span>
+                          <h4 className="font-bold text-primary group-hover:text-accent-primary transition-colors">Web Development</h4>
+                          <span className="text-xs bg-[rgba(139,92,246,0.1)] text-[#8B5CF6] px-2 py-1 rounded">2026</span>
                         </div>
-                        <p className="text-sm text-secondary">Udemy</p>
+                        <p className="text-sm text-secondary">Axixa Technologies</p>
                       </div>
                     </div>
                   </SpotlightCard>
