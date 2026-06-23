@@ -111,7 +111,7 @@ export default function Hero() {
 
               {/* Image Frame */}
               <div className="relative w-full h-full rounded-full overflow-hidden border-[6px] md:border-[10px] border-white dark:border-[#020617] z-20 shadow-[0_0_60px_rgba(13,148,136,0.3)]">
-                <Image src="/profile.png" alt="Dipanshu" fill priority unoptimized className="object-cover" />
+                <Image src="/profile.jpeg" alt="Dipanshu" fill priority unoptimized className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-teal-600/20 to-transparent" />
               </div>
 

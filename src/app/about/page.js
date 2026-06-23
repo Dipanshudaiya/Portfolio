@@ -159,7 +159,7 @@ export default function AboutPage() {
                     {/* 3. The Image Container */}
                     <div className="absolute inset-[8px] rounded-full overflow-hidden z-20 border border-indigo-100 dark:border-white/10 shadow-2xl">
                       <Image 
-                        src="/profile.png" 
+                        src="/profile.jpeg" 
                         alt="Dipanshu" 
                         fill 
                         priority

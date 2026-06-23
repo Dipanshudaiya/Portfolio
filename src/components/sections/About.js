@@ -66,7 +66,7 @@ export default function About() {
                 viewport={{ once: true }}
                 className="relative w-full h-full rounded-[3.5rem] overflow-hidden border-[10px] border-white dark:border-[#0f172a] shadow-2xl z-20"
               >
-                <Image src="/profile.png" alt="Dipanshu" fill className="object-cover" unoptimized />
+                <Image src="/profile.jpeg" alt="Dipanshu" fill className="object-cover" unoptimized />
                 <div className="absolute inset-0 bg-gradient-to-t from-teal-600/20 via-transparent to-transparent" />
               </motion.div>
 
