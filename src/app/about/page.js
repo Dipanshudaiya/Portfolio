@@ -186,8 +186,8 @@ export default function AboutPage() {
                  </div>
 
                  <a 
-                   href="/resume.pdf" 
-                   download="Dipanshu_Resume.pdf" 
+                   href="/Dipanshu_Daiya_Resume.pdf" 
+                   download="Dipanshu_Daiya_Resume.pdf" 
                    className="w-full block bg-gradient-to-br from-indigo-600 to-indigo-700 text-white py-4 rounded-xl font-black text-[10px] uppercase tracking-[0.3em] transition-all hover:shadow-[0_15px_30px_rgba(79,70,229,0.3)] hover:-translate-y-1 active:scale-95 shadow-md text-center"
                  >
                    Download Resume 📥

@@ -184,7 +184,7 @@ export default async function ProjectDetailsPage({ params }) {
               <p className={styles.actionSubtitle}>View Source Code</p>
             </div>
           </a>
-          <a href="/Resume.pdf" target="_blank" rel="noopener noreferrer" className={styles.actionCardResume}>
+          <a href="/Dipanshu_Daiya_Resume.pdf" target="_blank" rel="noopener noreferrer" className={styles.actionCardResume}>
             <span className={styles.actionIcon}>📥</span>
             <div className={styles.actionInfo}>
               <h3 className={styles.actionTitle}>Download Resume</h3>
