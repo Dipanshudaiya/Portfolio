@@ -84,7 +84,7 @@ export default function Hero() {
                 <span className="relative z-10 flex items-center gap-2 md:gap-3">Projects <span className="text-lg group-hover:translate-x-1 transition-transform">→</span></span>
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500 to-teal-600 opacity-0 group-hover:opacity-100 transition-all duration-200" />
               </motion.a>
-              <motion.a href="/resume.pdf" download whileHover={{ y: -4 }} whileTap={{ scale: 0.95 }} className="px-6 py-4 md:px-12 md:py-6 bg-[#1e293b] dark:bg-white text-white dark:text-[#0f172a] rounded-2xl font-black text-[11px] md:text-[13px] uppercase tracking-[0.1em] md:tracking-[0.2em] transition-all duration-200 hover:bg-[#0f172a] dark:hover:bg-gray-100 shadow-[0_10px_20px_rgba(0,0,0,0.1)] w-full sm:w-auto flex items-center justify-center">
+              <motion.a href="/Dipanshu_Daiya_Resume.pdf" download whileHover={{ y: -4 }} whileTap={{ scale: 0.95 }} className="px-6 py-4 md:px-12 md:py-6 bg-[#1e293b] dark:bg-white text-white dark:text-[#0f172a] rounded-2xl font-black text-[11px] md:text-[13px] uppercase tracking-[0.1em] md:tracking-[0.2em] transition-all duration-200 hover:bg-[#0f172a] dark:hover:bg-gray-100 shadow-[0_10px_20px_rgba(0,0,0,0.1)] w-full sm:w-auto flex items-center justify-center">
                 Resume <svg className="w-4 h-4 md:w-5 md:h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
               </motion.a>
             </div>
