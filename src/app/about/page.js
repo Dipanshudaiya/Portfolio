@@ -268,13 +268,13 @@ export default function AboutPage() {
                       <span className="text-accent-primary">🏆</span> Certifications
                     </h2>
                     <div className="flex flex-col gap-4">
-                      <div className="p-5 bg-stats border border-[color:var(--theme-accent)] rounded-2xl transition-colors group sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
+                      {/* <div className="p-5 bg-stats border border-[color:var(--theme-accent)] rounded-2xl transition-colors group sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <div className="flex justify-between items-start mb-2">
                           <h4 className="font-bold text-primary group-hover:text-accent-primary transition-colors">Advanced Java Programming</h4>
                           <span className="text-xs bg-[rgba(139,92,246,0.1)] text-[#8B5CF6] px-2 py-1 rounded">2024</span>
                         </div>
                         <p className="text-sm text-secondary">Coursera</p>
-                      </div>
+                      </div> */}
                       <div className="p-5 bg-stats border border-[color:var(--theme-accent)] rounded-2xl transition-colors group sub-card shadow-[0_0_15px_rgba(139,92,246,0.1)]">
                         <div className="flex justify-between items-start mb-2">
                           <h4 className="font-bold text-primary group-hover:text-accent-primary transition-colors">Web Development</h4>
