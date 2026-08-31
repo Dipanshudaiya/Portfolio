@@ -13,7 +13,7 @@ export const projectsData = [
       { name: 'Full Stack', icon: '⚙️', color: '#10B981' },
       { name: 'Responsive', icon: '📱', color: '#F59E0B' }
     ],
-    liveLink: 'https://tailor-shop-lemon.vercel.app/',
+    liveLink: 'https://dipanshu-tailorshop.vercel.app/',
     githubLink: '#',
     purpose: 'To digitize the workflow of traditional tailor shops, managing custom measurements, orders, and customer communication seamlessly.',
     problem: 'Existing tailor management methods rely on physical notebooks, leading to lost measurements, missed deadlines, and poor customer communication.',
