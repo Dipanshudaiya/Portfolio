@@ -56,7 +56,7 @@ export const projectsData = [
       { name: 'Collaboration', icon: '🤝', color: '#10B981' },
       { name: 'Interactive', icon: '🖱️', color: '#F59E0B' }
     ],
-    liveLink: 'https://frontend-task-nine-lake.vercel.app/',
+    liveLink: 'https://dipanshu-taskboard.vercel.app/',
     githubLink: '#',
     purpose: 'To provide teams with a clear, visual way to organize tasks and collaborate effectively in real-time.',
     problem: 'Without proper task tracking, teams often miss deadlines and face miscommunication about who is doing what.',
